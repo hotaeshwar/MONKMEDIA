@@ -91,6 +91,8 @@ export default function WhyChooseUs() {
           opacity: 0;
           transform: translateY(-28px);
           transition: opacity .75s ease, transform .75s cubic-bezier(.22,1,.36,1);
+          position: relative;
+          z-index: 5;
         }
         .wcu-head.in { opacity: 1; transform: none; }
 
@@ -237,9 +239,29 @@ export default function WhyChooseUs() {
         /* ── MOBILE ── */
         @media (max-width: 560px) {
           .wcu { padding: 52px 0 0; }
+          .wcu-head { margin-bottom: 32px; }
           .wcu-body-outer { padding: 0 12px; }
           .wcu-col { flex: 0 0 100%; gap: 12px; }
-          .wcu-mid { min-height: 260px; }
+
+          /* Image sits BELOW header — no negative margin, no overlap */
+          .wcu-mid {
+            order: 0;
+            min-height: 240px;
+            margin-top: 0;
+            width: 100%;
+            max-height: 280px;
+            overflow: hidden;
+          }
+          .wcu-img {
+            max-height: 280px;
+            object-fit: contain;
+            object-position: bottom center;
+          }
+
+          /* Cards come after the image */
+          .wcu-col.left  { order: 1; }
+          .wcu-col.right { order: 2; }
+
           .wcu-card { padding: 32px 18px; }
           .wcu-col.left  .wcu-card:nth-child(1),
           .wcu-col.left  .wcu-card:nth-child(2),

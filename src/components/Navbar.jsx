@@ -3,9 +3,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
 const links = [
-  { label: "Home",     to: "/" },
-  { label: "About Us", to: "/about" },
-  { label: "Services", to: "/services" },
+  { label: "Home",        to: "/" },
+  { label: "About Us",    to: "/about" },
+  { label: "Services",    to: "/services" },
+  { label: "Get In Touch", to: "/contact" },
 ];
 
 export default function Navbar() {
@@ -45,13 +46,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex items-center justify-between h-24 sm:h-[100px]">
 
-            {/* ✅ Logo — overflow allowed so it can be taller than navbar */}
+            {/* Logo */}
             <NavLink to="/" className="flex items-center select-none shrink-0" style={{ overflow: "visible" }}>
               <img
                 src="/media/L1-01.png"
                 alt="MonkMedia Logo"
                 style={{
-                  height: "140px",        /* ✅ Bigger than navbar height */
+                  height: "140px",
                   width: "auto",
                   objectFit: "contain",
                   position: "relative",
@@ -74,7 +75,6 @@ export default function Navbar() {
                          : "text-[#0d1b2a] hover:text-[#2587a8]"
                        }`
                     }
-                    /* ✅ Bold font weight via style so it always applies */
                     style={{ fontWeight: 800 }}
                   >
                     {({ isActive }) => (
@@ -94,10 +94,10 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center">
+            {/* Desktop CTA — Portfolio */}
+            <div className="hidden md:flex items-center mr-4">
               <NavLink
-                to="/contact"
+                to="/portfolio"
                 className="
                   nav-syne flex items-center gap-2
                   bg-[#2587a8] hover:bg-[#1e6f8f]
@@ -109,7 +109,7 @@ export default function Navbar() {
                 "
                 style={{ fontWeight: 800 }}
               >
-                Get In Touch
+                Portfolio
                 <span className="w-6 h-6 rounded-full bg-[#0d1b2a] flex items-center justify-center shrink-0">
                   <ArrowUpRight size={13} color="#eee3ca" />
                 </span>
@@ -142,7 +142,7 @@ export default function Navbar() {
           className={`
             md:hidden overflow-hidden
             transition-all duration-400 ease-[cubic-bezier(.16,1,.3,1)]
-            ${open ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"}
+            ${open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}
           `}
         >
           <div className="bg-[#eee3ca] border-t border-[#0d1b2a]/8 px-5 pb-6 pt-3">
@@ -177,9 +177,9 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* Mobile CTA */}
+            {/* Mobile CTA — Portfolio */}
             <NavLink
-              to="/contact"
+              to="/portfolio"
               className="
                 nav-syne flex items-center justify-center gap-2
                 bg-[#2587a8] hover:bg-[#1e6f8f]
@@ -193,7 +193,7 @@ export default function Navbar() {
                 transitionDelay: open ? `${links.length * 55}ms` : "0ms",
               }}
             >
-              Get In Touch
+              Portfolio
               <span className="w-6 h-6 rounded-full bg-[#0d1b2a] flex items-center justify-center shrink-0">
                 <ArrowUpRight size={13} color="#eee3ca" />
               </span>
