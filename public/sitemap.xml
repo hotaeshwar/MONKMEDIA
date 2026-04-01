@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/</loc>
+    <loc>https://monkmedia.ca/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/about</loc>
+    <loc>https://monkmedia.ca/about</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/services</loc>
+    <loc>https://monkmedia.ca/services</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/why-us</loc>
+    <loc>https://monkmedia.ca/why-us</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/our-work</loc>
+    <loc>https://monkmedia.ca/our-work</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/portfolio</loc>
+    <loc>https://monkmedia.ca/portfolio</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
 
   <url>
-    <loc>https://hotaeshwar.github.io/MONKMEDIA/contact</loc>
+    <loc>https://monkmedia.ca/contact</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>

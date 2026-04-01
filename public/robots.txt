@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hotaeshwar.github.io/MONKMEDIA/sitemap.xml
+Sitemap: https://monkmedia.ca/sitemap.xml
