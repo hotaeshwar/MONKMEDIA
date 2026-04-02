@@ -37,7 +37,6 @@ const DigitalIcon = () => (
   />
 );
 
-/* ─── useInView: fires once when element hits viewport ─── */
 function useInView(rootMargin = "0px 0px -10% 0px") {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -61,10 +60,66 @@ function useInView(rootMargin = "0px 0px -10% 0px") {
   return [ref, inView];
 }
 
+const STEPS = [
+  {
+    icon: <BoltIcon />,
+    number: "01",
+    title: "Fast Reliable Service",
+    desc: "We deliver quick, dependable digital solutions designed to keep your business running smoothly without delays.",
+    side: "left",
+  },
+  {
+    icon: <ClockIcon />,
+    number: "02",
+    title: "Ongoing Support",
+    desc: "Our team is available 24/7 to provide continuous assistance and ensure your business never misses a beat.",
+    side: "right",
+  },
+  {
+    icon: <GlobeIcon />,
+    number: "03",
+    title: "Efficient Project Execution",
+    desc: "Delivering projects on time with accuracy and professionalism, ensuring optimal results for your business.",
+    side: "left",
+  },
+  {
+    icon: <DigitalIcon />,
+    number: "04",
+    title: "High-Quality Digital Solutions",
+    desc: "We craft premium digital experiences that elevate your brand and drive measurable business outcomes.",
+    side: "right",
+  },
+];
+
+function StepCard({ step, index }) {
+  const [ref, inView] = useInView("0px 0px -8% 0px");
+  const isLeft = step.side === "left";
+
+  return (
+    <div
+      ref={ref}
+      className={`wcu-step ${isLeft ? "step-left" : "step-right"} ${inView ? "in" : ""}`}
+      style={{ transitionDelay: `${index * 0.12}s` }}
+    >
+      {/* Card */}
+      <div className={`wcu-step-card ${isLeft ? "card-left" : "card-right"}`}>
+        <div className="wcu-step-number">{step.number}</div>
+        <div className="wcu-step-icon-ring">{step.icon}</div>
+        <h3 className="wcu-step-title">{step.title}</h3>
+        <p className="wcu-step-desc">{step.desc}</p>
+        <div className="wcu-step-glow" />
+      </div>
+
+      {/* Center dot */}
+      <div className="wcu-step-dot">
+        <div className="wcu-step-dot-inner" />
+      </div>
+    </div>
+  );
+}
+
 export default function WhyChooseUs() {
-  const [headRef,  headIn]  = useInView("0px 0px -5% 0px");
-  const [bodyRef,  bodyIn]  = useInView("0px 0px -8% 0px");
-  const [imgRef,   imgIn]   = useInView("0px 0px -5% 0px");
+  const [headRef, headIn] = useInView("0px 0px -5% 0px");
 
   return (
     <>
@@ -75,31 +130,29 @@ export default function WhyChooseUs() {
 
         .wcu {
           width: 100%;
-          padding: 80px 0 0;
+          padding: 90px 24px 100px;
           font-family: 'Inter', sans-serif;
+          background: #000;
           display: flex;
           flex-direction: column;
           align-items: center;
-          background: #000;
+          overflow: hidden;
         }
 
         /* ── HEADER ── */
         .wcu-head {
           text-align: center;
-          padding: 0 24px;
-          margin-bottom: 60px;
+          margin-bottom: 80px;
           opacity: 0;
           transform: translateY(-28px);
           transition: opacity .75s ease, transform .75s cubic-bezier(.22,1,.36,1);
-          position: relative;
-          z-index: 5;
         }
         .wcu-head.in { opacity: 1; transform: none; }
 
         .wcu-eye {
           display: flex; align-items: center; justify-content: center;
-          gap: 12px; color: rgba(238,227,202,0.5); font-size: 13px; letter-spacing: .08em;
-          text-transform: uppercase; margin-bottom: 20px;
+          gap: 12px; color: rgba(238,227,202,0.5); font-size: 13px;
+          letter-spacing: .10em; text-transform: uppercase; margin-bottom: 20px;
         }
         .wcu-eye::before, .wcu-eye::after {
           content: ''; width: 44px; height: 1px; background: #2587a8; display: block;
@@ -109,226 +162,211 @@ export default function WhyChooseUs() {
           font-weight: 800; color: #eee3ca;
           line-height: 1.08; letter-spacing: -.025em; margin-bottom: 20px;
         }
+        .wcu-h1 span {
+          color: #2587a8;
+        }
         .wcu-sub {
           color: rgba(238,227,202,0.4); font-size: 15px; line-height: 1.78;
           max-width: 530px; margin: 0 auto;
         }
 
-        /* ── LAYOUT ── */
-        .wcu-body-outer {
+        /* ── TIMELINE WRAPPER ── */
+        .wcu-timeline {
+          position: relative;
           width: 100%;
-          max-width: 1280px;
-          padding: 0 24px;
-        }
-
-        .wcu-body {
+          max-width: 1100px;
           display: flex;
-          align-items: stretch;
+          flex-direction: column;
           gap: 0;
         }
 
-        .wcu-col {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .wcu-gap {
-          width: 24px;
-          flex-shrink: 0;
-        }
-
-        /* ── CENTER IMAGE ── */
-        .wcu-mid {
-          width: 380px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-          margin-top: -80px;
-          position: relative;
-          min-height: 520px;
-        }
-
-        /* Image rises from below — starts hidden below container */
-        .wcu-img {
-          width: 100%;
-          height: auto;
-          object-fit: contain;
-          object-position: bottom center;
-          transform: translateY(120px);
-          opacity: 0;
-          transition: transform 1.3s cubic-bezier(.22,1,.36,1) .1s,
-                      opacity   1s   ease                       .1s;
-          position: relative;
-          z-index: 2;
-          will-change: transform, opacity;
-        }
-        .wcu-img.in {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
-        /* ── CARDS ── */
-        .wcu-card {
-          flex: 1;
-          border: 1px solid rgba(255,255,255,0.07);
-          border-radius: 12px;
-          padding: 44px 32px;
-          text-align: center;
-          display: flex; flex-direction: column; align-items: center;
-          background: rgba(0,0,0,0.55);
-          backdrop-filter: blur(8px);
-          opacity: 0;
-          will-change: transform, opacity;
-          transition: opacity .7s ease,
-                      transform .7s cubic-bezier(.22,1,.36,1),
-                      border-color .3s,
-                      background .3s;
-        }
-        .wcu-card:hover {
-          border-color: #2587a8;
-          background: rgba(4,4,4,0.75);
-        }
-
-        /* ── fly-in starting positions — corners ── */
-        .wcu-col.left  .wcu-card:nth-child(1) { transform: translate(-90px, -60px); transition-delay: .05s; }
-        .wcu-col.left  .wcu-card:nth-child(2) { transform: translate(-90px,  60px); transition-delay: .20s; }
-        .wcu-col.right .wcu-card:nth-child(1) { transform: translate( 90px, -60px); transition-delay: .12s; }
-        .wcu-col.right .wcu-card:nth-child(2) { transform: translate( 90px,  60px); transition-delay: .27s; }
-
-        /* ── animate to natural position ── */
-        .wcu-card.in {
-          opacity: 1 !important;
-          transform: translate(0, 0) !important;
-        }
-
-        .wcu-ring {
-          width: 62px; height: 62px; border-radius: 50%;
-          border: 1.5px solid #2587a8;
-          display: flex; align-items: center; justify-content: center;
-          margin-bottom: 26px;
-        }
-
-        .wcu-ct {
-          font-size: 19px; font-weight: 700; color: #eee3ca;
-          line-height: 1.3; padding-bottom: 14px; position: relative;
-        }
-        .wcu-ct::after {
+        /* Vertical center line */
+        .wcu-timeline::before {
           content: '';
-          display: block; width: 32px; height: 2px;
-          background: #d4af37; margin: 10px auto 0; border-radius: 2px;
-        }
-        .wcu-cd {
-          font-size: 14px; color: rgba(238,227,202,0.4); line-height: 1.78; margin-top: 12px;
+          position: absolute;
+          left: 50%;
+          top: 0; bottom: 0;
+          width: 1px;
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            #2587a8 10%,
+            #2587a8 90%,
+            transparent 100%
+          );
+          transform: translateX(-50%);
+          z-index: 0;
         }
 
-        /* ── TABLET ── */
-        @media (max-width: 900px) {
-          .wcu-body { flex-wrap: wrap; }
-          .wcu-gap { display: none; }
-          .wcu-col { flex: 0 0 50%; gap: 16px; }
-          .wcu-mid { flex: 0 0 100%; order: -1; width: 100%; min-height: 320px; }
-          .wcu-col.left  .wcu-card:nth-child(1),
-          .wcu-col.left  .wcu-card:nth-child(2) { transform: translate(-60px, 36px); }
-          .wcu-col.right .wcu-card:nth-child(1),
-          .wcu-col.right .wcu-card:nth-child(2) { transform: translate( 60px, 36px); }
+        /* ── EACH STEP ROW ── */
+        .wcu-step {
+          display: flex;
+          align-items: center;
+          position: relative;
+          min-height: 180px;
+          opacity: 0;
+          will-change: transform, opacity;
+          transition: opacity .75s cubic-bezier(.22,1,.36,1),
+                      transform .75s cubic-bezier(.22,1,.36,1);
+        }
+        .wcu-step.step-left  { transform: translateX(-60px); justify-content: flex-start; }
+        .wcu-step.step-right { transform: translateX(60px);  justify-content: flex-end;  }
+        .wcu-step.in { opacity: 1; transform: translateX(0); }
+
+        /* ── CARD ── */
+        .wcu-step-card {
+          width: 44%;
+          position: relative;
+          border-radius: 16px;
+          padding: 36px 32px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          overflow: hidden;
+          transition: border-color .35s ease, background .35s ease, transform .35s ease;
+          z-index: 2;
+        }
+        .wcu-step-card:hover {
+          border-color: rgba(37,135,168,0.5);
+          background: rgba(37,135,168,0.05);
+          transform: translateY(-4px);
+        }
+
+        /* Accent corner slice */
+        .wcu-step-card.card-left::before {
+          content: '';
+          position: absolute;
+          top: 0; right: -1px;
+          width: 0; height: 0;
+          border-style: solid;
+          border-width: 0 0 48px 48px;
+          border-color: transparent transparent #000 transparent;
+        }
+        .wcu-step-card.card-right::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -1px;
+          width: 0; height: 0;
+          border-style: solid;
+          border-width: 48px 48px 0 0;
+          border-color: #000 transparent transparent transparent;
+        }
+
+        /* Glowing bg blur */
+        .wcu-step-glow {
+          position: absolute;
+          bottom: -40px; 
+          width: 160px; height: 160px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(37,135,168,0.18) 0%, transparent 70%);
+          pointer-events: none;
+          z-index: 0;
+        }
+        .card-left  .wcu-step-glow { right: -40px; }
+        .card-right .wcu-step-glow { left: -40px; }
+
+        .wcu-step-number {
+          font-size: 52px;
+          font-weight: 900;
+          color: rgba(37,135,168,0.12);
+          line-height: 1;
+          position: absolute;
+          top: 16px; right: 20px;
+          letter-spacing: -.04em;
+          z-index: 1;
+          user-select: none;
+        }
+        .card-right .wcu-step-number { right: auto; left: 20px; }
+
+        .wcu-step-icon-ring {
+          width: 52px; height: 52px; border-radius: 50%;
+          border: 1px solid rgba(37,135,168,0.4);
+          display: flex; align-items: center; justify-content: center;
+          margin-bottom: 18px;
+          background: rgba(37,135,168,0.07);
+          position: relative; z-index: 2;
+        }
+
+        .wcu-step-title {
+          font-size: 18px; font-weight: 700;
+          color: #eee3ca; line-height: 1.3;
+          margin-bottom: 10px;
+          position: relative; z-index: 2;
+        }
+
+        .wcu-step-desc {
+          font-size: 13.5px; line-height: 1.75;
+          color: rgba(238,227,202,0.4);
+          position: relative; z-index: 2;
+        }
+
+        /* ── CENTER DOT ── */
+        .wcu-step-dot {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 18px; height: 18px;
+          border-radius: 50%;
+          border: 1.5px solid #2587a8;
+          background: #000;
+          display: flex; align-items: center; justify-content: center;
+          z-index: 3;
+        }
+        .wcu-step-dot-inner {
+          width: 7px; height: 7px;
+          border-radius: 50%;
+          background: #2587a8;
         }
 
         /* ── MOBILE ── */
-        @media (max-width: 560px) {
-          .wcu { padding: 52px 0 0; }
-          .wcu-head { margin-bottom: 32px; }
-          .wcu-body-outer { padding: 0 12px; }
-          .wcu-col { flex: 0 0 100%; gap: 12px; }
+        @media (max-width: 680px) {
+          .wcu { padding: 60px 16px 72px; }
+          .wcu-head { margin-bottom: 48px; }
 
-          /* Image sits BELOW header — no negative margin, no overlap */
-          .wcu-mid {
-            order: 0;
-            min-height: 240px;
-            margin-top: 0;
-            width: 100%;
-            max-height: 280px;
-            overflow: hidden;
+          .wcu-timeline::before { left: 16px; }
+
+          .wcu-step {
+            justify-content: flex-end !important;
+            padding-left: 44px;
           }
-          .wcu-img {
-            max-height: 280px;
-            object-fit: contain;
-            object-position: bottom center;
+          .wcu-step.step-left,
+          .wcu-step.step-right { transform: translateY(30px); }
+          .wcu-step.in { transform: translateY(0); }
+
+          .wcu-step-card { width: 100%; }
+          .wcu-step-card.card-left::before,
+          .wcu-step-card.card-right::before { display: none; }
+
+          .wcu-step-dot {
+            left: 16px;
+            top: 50%;
           }
-
-          /* Cards come after the image */
-          .wcu-col.left  { order: 1; }
-          .wcu-col.right { order: 2; }
-
-          .wcu-card { padding: 32px 18px; }
-          .wcu-col.left  .wcu-card:nth-child(1),
-          .wcu-col.left  .wcu-card:nth-child(2),
-          .wcu-col.right .wcu-card:nth-child(1),
-          .wcu-col.right .wcu-card:nth-child(2) { transform: translateY(40px); }
+          .wcu-step-number { font-size: 36px; }
         }
       `}</style>
 
       <section className="wcu">
 
-        {/* Header — own ref, fires when header scrolls in */}
+        {/* Header */}
         <div className={`wcu-head${headIn ? " in" : ""}`} ref={headRef}>
           <p className="wcu-eye">Why Choose Us</p>
-          <h2 className="wcu-h1">Crafting Experiences,<br />Delivering Success.</h2>
+          <h2 className="wcu-h1">
+            Crafting Experiences,<br />
+            <span>Delivering Success.</span>
+          </h2>
           <p className="wcu-sub">
             Digital solutions that connect with your audience, strengthen your brand,
             and deliver real, measurable results that fuel your business growth.
           </p>
         </div>
 
-        <div className="wcu-body-outer">
-          {/* bodyRef on the row — cards animate when the row enters viewport */}
-          <div className="wcu-body" ref={bodyRef}>
-
-            {/* LEFT CARDS */}
-            <div className="wcu-col left">
-              <div className={`wcu-card${bodyIn ? " in" : ""}`}>
-                <div className="wcu-ring"><BoltIcon /></div>
-                <h3 className="wcu-ct">Fast Reliable Service</h3>
-                <p className="wcu-cd">We deliver quick, dependable digital solutions designed to keep your business running smoothly without delays.</p>
-              </div>
-              <div className={`wcu-card${bodyIn ? " in" : ""}`}>
-                <div className="wcu-ring"><ClockIcon /></div>
-                <h3 className="wcu-ct">Ongoing Support</h3>
-                <p className="wcu-cd">Our team is available 24/7 to provide continuous assistance and ensure your business never misses a beat.</p>
-              </div>
-            </div>
-
-            <div className="wcu-gap" />
-
-            {/* CENTER IMAGE — own ref for the rise-up */}
-            <div className="wcu-mid" ref={imgRef}>
-              <img
-                src="/media/chooseus.jpg"
-                alt="Why Choose Us"
-                className={`wcu-img${imgIn ? " in" : ""}`}
-              />
-            </div>
-
-            <div className="wcu-gap" />
-
-            {/* RIGHT CARDS */}
-            <div className="wcu-col right">
-              <div className={`wcu-card${bodyIn ? " in" : ""}`}>
-                <div className="wcu-ring"><GlobeIcon /></div>
-                <h3 className="wcu-ct">Efficient Project Execution</h3>
-                <p className="wcu-cd">Delivering projects on time with accuracy and professionalism, ensuring optimal results for your business.</p>
-              </div>
-              <div className={`wcu-card${bodyIn ? " in" : ""}`}>
-                <div className="wcu-ring"><DigitalIcon /></div>
-                <h3 className="wcu-ct">High-Quality Digital Solutions</h3>
-                <p className="wcu-cd">We craft premium digital experiences that elevate your brand and drive measurable business outcomes.</p>
-              </div>
-            </div>
-
-          </div>
+        {/* Timeline */}
+        <div className="wcu-timeline">
+          {STEPS.map((step, i) => (
+            <StepCard key={i} step={step} index={i} />
+          ))}
         </div>
+
       </section>
     </>
   );

@@ -15,7 +15,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 3000);
+    const t = setTimeout(() => setLoading(false), 5000);
     return () => clearTimeout(t);
   }, []);
 
@@ -45,21 +45,11 @@ function App() {
             align-items: center;
             justify-content: center;
             animation: splashFadeIn 0.6s ease both;
-
-            /* ✅ Same background image as Background.jsx */
-            background-image: url('/media/call-to-action.jpg');
+            background-image: url('/media/screen/skyline.jpg');
             background-size: cover;
             background-position: center;
           }
 
-          /* ✅ Dark overlay on top of image so logo pops */
-          .splash-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-          }
-
-          /* Everything above the overlay */
           .splash-content {
             position: relative;
             z-index: 2;
@@ -127,11 +117,7 @@ function App() {
         `}</style>
 
         <div className="splash-root">
-          {/* Dark overlay over the background image */}
-          <div className="splash-overlay" />
-
           <div className="splash-content">
-            {/* Logo with pulse rings */}
             <div className="splash-logo-wrap">
               <div className="splash-pulse" />
               <div className="splash-pulse p2" />
@@ -141,11 +127,7 @@ function App() {
                 className="splash-logo"
               />
             </div>
-
-            {/* Spinner */}
             <div className="splash-spinner" />
-
-            {/* Dot trail */}
             <div className="splash-dots">
               <div className="splash-dot" />
               <div className="splash-dot" />

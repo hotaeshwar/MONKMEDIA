@@ -175,7 +175,7 @@ function VideoModal({ onClose }) {
         <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
           <video
             ref={videoRef}
-            src="/media/testimonial.mp4"
+            src="/media/testimonial/testimonial.mp4"
             controls
             playsInline
             preload="auto"
@@ -215,7 +215,7 @@ function VideoCard({ visible }) {
         }}
       >
         <video
-          src="/media/testimonial.mp4"
+          src="/media/testimonial/testimonial.mp4"
           className="w-full h-full object-cover"
           style={{ maxHeight: "420px", minHeight: "260px", pointerEvents: "none" }}
           preload="metadata"
@@ -410,7 +410,7 @@ export default function Testimonials() {
           <div ref={mediaRef} className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
             <div className={`tst-img-wrap ${mediaVisible ? "on" : ""} relative rounded-2xl overflow-hidden border border-[#1a1a1a]`}>
               <img
-                src="/media/testimonial.png"
+                src="/media/testimonial/testimonial.png"
                 alt="Client testimonials"
                 className="w-full object-cover"
                 style={{ minHeight: "260px", maxHeight: "420px" }}
