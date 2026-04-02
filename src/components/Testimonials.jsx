@@ -408,9 +408,11 @@ export default function Testimonials() {
 
           {/* ── MEDIA ROW ── */}
           <div ref={mediaRef} className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+
+            {/* ✅ FIXED IMAGE PATH */}
             <div className={`tst-img-wrap ${mediaVisible ? "on" : ""} relative rounded-2xl overflow-hidden border border-[#1a1a1a]`}>
               <img
-                src="/media/testimonial/testimonial.png"
+                src="/media/testimonial.png"
                 alt="Client testimonials"
                 className="w-full object-cover"
                 style={{ minHeight: "260px", maxHeight: "420px" }}

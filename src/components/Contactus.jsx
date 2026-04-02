@@ -263,8 +263,8 @@ export default function ContactUs() {
                 {
                   icon: <MailIcon />,
                   label: "Email",
-                  value: "hello@monkmedia.com",
-                  href: "mailto:hello@monkmedia.com",
+                  value: "info@monkmedia.ca",
+                  href: "mailto:info@monkmedia.ca",
                 },
                 {
                   icon: <MapIcon />,
