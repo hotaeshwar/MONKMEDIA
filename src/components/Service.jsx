@@ -111,16 +111,12 @@ function useReveal(threshold = 0.12) {
 
 /* ── Utility function to scroll to Our Work section ── */
 const scrollToOurWork = () => {
-  const ourWorkSection = document.getElementById('our-work');
+  const ourWorkSection = document.getElementById("our-work");
   if (ourWorkSection) {
     const offset = 80;
     const elementPosition = ourWorkSection.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - offset;
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
   }
 };
 
@@ -146,21 +142,19 @@ function ServiceRow({ service, index }) {
     return (
       <div
         ref={rowRef}
-        className={`
-          w-full border-b border-white/5 overflow-hidden
-          transition-all duration-700 ease-out
-          ${rowVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
-        `}
+        className={`w-full border-b border-white/5 overflow-hidden transition-all duration-700 ease-out ${
+          rowVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-20">
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
             {/* Left — text */}
-            <div className="flex flex-col gap-5 flex-1">
+            <div className="flex flex-col gap-4 sm:gap-5 flex-1">
               <p className="text-[10px] tracking-[0.25em] text-[#2587a8] uppercase">
                 {service.tags}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <h3
                   className="text-[#eee3ca] font-extrabold leading-[1.05] text-2xl sm:text-3xl md:text-4xl xl:text-5xl"
                   style={{ fontFamily: "'Syne', sans-serif" }}
@@ -179,17 +173,9 @@ function ServiceRow({ service, index }) {
                 {service.description}
               </p>
 
-              {/* View Our Work button for coming soon */}
               <button
                 onClick={scrollToOurWork}
-                className="
-                  inline-flex items-center gap-2 mt-2
-                  px-6 py-3 rounded-full
-                  border border-[#d4af37] text-[#d4af37]
-                  text-sm font-semibold tracking-wide
-                  hover:bg-[#d4af37] hover:text-black
-                  transition-all duration-300
-                "
+                className="inline-flex items-center gap-2 mt-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300 w-fit"
               >
                 View Our Work
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
@@ -209,12 +195,9 @@ function ServiceRow({ service, index }) {
                     backgroundSize: "28px 28px",
                   }}
                 />
-                <svg
-                  viewBox="0 0 24 24" width="42" height="42"
-                  fill="none" stroke="#d4af37" strokeWidth="1.5"
-                  strokeLinecap="round" strokeLinejoin="round"
-                  className="relative z-10 opacity-80"
-                >
+                <svg viewBox="0 0 24 24" width="42" height="42" fill="none"
+                  stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                  className="relative z-10 opacity-80">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
@@ -238,14 +221,11 @@ function ServiceRow({ service, index }) {
     <div ref={rowRef} className="relative w-full border-b border-white/5 overflow-hidden">
       {/* Banner */}
       <div
-        className={`
-          flex items-center gap-3 sm:gap-5 px-6 sm:px-10
-          bg-black border-b border-white/5 py-7 sm:py-9
-          transition-all duration-500 ease-in-out
-          ${rowVisible && !showContent
+        className={`flex items-center gap-3 sm:gap-5 px-4 sm:px-6 lg:px-10 bg-black border-b border-white/5 py-6 sm:py-8 transition-all duration-500 ease-in-out ${
+          rowVisible && !showContent
             ? "opacity-100 max-h-40 pointer-events-auto"
-            : "opacity-0 max-h-0 py-0 overflow-hidden pointer-events-none"}
-        `}
+            : "opacity-0 max-h-0 py-0 overflow-hidden pointer-events-none"
+        }`}
       >
         <span
           className="font-bold text-[#2587a8] tracking-widest text-xs sm:text-sm shrink-0"
@@ -266,19 +246,14 @@ function ServiceRow({ service, index }) {
 
       {/* Main content */}
       <div
-        className={`
-          transition-all duration-700 ease-out
-          ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12 pointer-events-none"}
-        `}
+        className={`transition-all duration-700 ease-out ${
+          showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12 pointer-events-none"
+        }`}
       >
         <div
-          className={`
-            flex flex-col gap-8
-            ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"}
-            items-center lg:gap-14 xl:gap-20
-            px-6 sm:px-10 py-10 sm:py-14 lg:py-20
-            max-w-7xl mx-auto
-          `}
+          className={`flex flex-col gap-8 ${
+            isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+          } items-center lg:gap-14 xl:gap-20 px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-20 max-w-7xl mx-auto`}
         >
           {/* Image or Video */}
           <div className="w-full lg:w-[54%] shrink-0 group">
@@ -286,10 +261,7 @@ function ServiceRow({ service, index }) {
               {service.video ? (
                 <video
                   src={service.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
+                  autoPlay muted loop playsInline
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
               ) : (
@@ -316,11 +288,9 @@ function ServiceRow({ service, index }) {
 
           {/* Text */}
           <div
-            className={`
-              w-full lg:w-[46%] flex flex-col gap-4 sm:gap-5
-              items-start text-left
-              ${isEven ? "lg:items-start lg:text-left" : "lg:items-end lg:text-right"}
-            `}
+            className={`w-full lg:w-[46%] flex flex-col gap-4 sm:gap-5 items-start text-left ${
+              isEven ? "lg:items-start lg:text-left" : "lg:items-end lg:text-right"
+            }`}
           >
             <p className="text-[10px] tracking-[0.25em] text-[#2587a8] uppercase">
               {service.tags}
@@ -343,20 +313,12 @@ function ServiceRow({ service, index }) {
             </p>
 
             {/* Buttons container */}
-            <div className="flex flex-wrap gap-4 mt-2">
-              {/* WhatsApp Get Started button */}
+            <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
               <a
                 href={waLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="
-                  inline-flex items-center gap-2
-                  px-6 py-3 rounded-full
-                  border border-[#2587a8] text-[#eee3ca]
-                  text-sm font-semibold tracking-wide
-                  hover:bg-[#2587a8] transition-all duration-300
-                  hover:translate-x-1
-                "
+                className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#2587a8] text-[#eee3ca] text-sm font-semibold tracking-wide hover:bg-[#2587a8] transition-all duration-300 hover:translate-x-1"
               >
                 Get Started
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
@@ -366,17 +328,9 @@ function ServiceRow({ service, index }) {
                 </svg>
               </a>
 
-              {/* View Our Work button */}
               <button
                 onClick={scrollToOurWork}
-                className="
-                  inline-flex items-center gap-2
-                  px-6 py-3 rounded-full
-                  border border-[#d4af37] text-[#d4af37]
-                  text-sm font-semibold tracking-wide
-                  hover:bg-[#d4af37] hover:text-black
-                  transition-all duration-300
-                "
+                className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300"
               >
                 View Our Work
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
@@ -403,19 +357,15 @@ function ServiceRow({ service, index }) {
 export default function Services() {
   const [headerRef, headerVisible] = useReveal(0.04);
 
-  // Handle hash links on page load
   useEffect(() => {
-    if (window.location.hash === '#our-work') {
+    if (window.location.hash === "#our-work") {
       setTimeout(() => {
-        const section = document.getElementById('our-work');
+        const section = document.getElementById("our-work");
         if (section) {
           const offset = 80;
           const elementPosition = section.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
       }, 500);
     }
@@ -430,39 +380,36 @@ export default function Services() {
 
       <section className="svc-root w-full bg-black overflow-hidden">
         {/* ── HEADER ── */}
+        {/* pt-20 on mobile (80px) accounts for fixed navbar height; increases gracefully on larger screens */}
         <div
           ref={headerRef}
-          className={`
-            max-w-7xl mx-auto px-6 sm:px-10
-            pt-14 pb-10 sm:pt-20 sm:pb-14 lg:pt-28 lg:pb-16
-            flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-16
-            transition-all duration-700 ease-out
-            ${headerVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"}
-          `}
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-36 sm:pt-40 md:pt-44 lg:pt-48 pb-10 sm:pb-14 lg:pb-16 flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-16 transition-all duration-700 ease-out ${
+            headerVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
+          }`}
         >
           <div className="flex-1">
+            {/* SERVICES label */}
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
               <span className="block w-9 h-px bg-[#2587a8]" />
               <span className="text-[11px] tracking-[0.22em] text-[#eee3ca]/40 uppercase">Services</span>
               <span className="block w-9 h-px bg-[#2587a8]" />
             </div>
 
-            {/* View Our Work Button in Header */}
+            {/* View Our Work Button */}
             <button
               onClick={scrollToOurWork}
-              className="mb-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full 
-                         border border-[#d4af37] text-[#d4af37] text-sm font-semibold 
-                         hover:bg-[#d4af37] hover:text-black transition-all duration-300"
+              className="mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[#d4af37] text-[#d4af37] text-xs sm:text-sm font-semibold hover:bg-[#d4af37] hover:text-black transition-all duration-300"
             >
               View Our Work
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" 
-                   stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6"/>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
 
+            {/* Main heading — fluid type scale */}
             <h2
-              className="text-[#eee3ca] font-extrabold leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl"
+              className="text-[#eee3ca] font-extrabold leading-none text-[clamp(2.8rem,10vw,7rem)]"
               style={{ fontFamily: "'Syne', sans-serif" }}
             >
               WHAT WE<br />
