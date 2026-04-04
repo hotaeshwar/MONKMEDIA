@@ -232,7 +232,7 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <div className="mb-4">
                 <img
-                  src="/media/logo.png"
+                  src="/media/L1-01.png"
                   alt="Monk Media"
                   className="w-auto h-24 sm:h-28 md:h-32 lg:h-36 object-contain block"
                 />
@@ -338,8 +338,9 @@ export default function Footer() {
             {/* Left: copyright + legal links */}
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
               <p className="text-xs text-center sm:text-left text-white/35">
-                © {year} Monk Media. All rights reserved. Building India's{" "}
-                <span className="text-teal-500">Digital</span> Team.
+                © {year} Monk Media. All rights reserved. Made with{" "}
+                <span className="text-red-500">♥</span> by{" "}
+                <span className="text-teal-500">BuildingIndiaDigital</span>
               </p>
               <div className="flex items-center gap-3">
                 <span className="hidden sm:block w-px h-3 bg-white/15" />
