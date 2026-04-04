@@ -132,7 +132,7 @@ function App() {
               <div className="splash-pulse" />
               <div className="splash-pulse p2" />
               <img
-                src="/media/L1-01.png"
+                src="/media/logo.png"
                 alt="Monk Media"
                 className="splash-logo"
               />
