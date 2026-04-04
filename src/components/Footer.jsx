@@ -228,22 +228,22 @@ export default function Footer() {
           {/* ── TOP GRID ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-12">
 
-            {/* Brand column */}
+            {/* Brand column - with larger logo */}
             <div className="lg:col-span-1">
-              <div className="mb-4">
+              <div className="mb-4 flex justify-center sm:justify-start">
                 <img
-                  src="/media/L1-01.png"
+                  src="/media/logo.png"
                   alt="Monk Media"
-                  className="w-auto h-24 sm:h-28 md:h-32 lg:h-36 object-contain block"
+                  className="w-auto h-32 sm:h-36 md:h-44 lg:h-52 xl:h-60 object-contain block"
                 />
               </div>
-              <p className="text-[11px] sm:text-xs font-semibold uppercase mb-4 text-white/35 tracking-[0.14em]">
+              <p className="text-[11px] sm:text-xs font-semibold uppercase mb-4 text-white/35 tracking-[0.14em] text-center sm:text-left">
                 14689941 Canada Inc.
               </p>
-              <p className="text-sm leading-relaxed mb-6 text-white/55 max-w-md">
+              <p className="text-sm leading-relaxed mb-6 text-white/55 max-w-md text-center sm:text-left">
                 We turn ideas into powerful digital experiences. Your goals are our mission — your success is our result.
               </p>
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-3 flex-wrap justify-center sm:justify-start">
                 <a href="https://www.instagram.com/monkmedia.ca?igsh=MWdyemR6dzJyZ21wMA==" target="_blank" rel="noopener noreferrer" className="w-[38px] h-[38px] rounded-full border border-white/20 flex items-center justify-center transition-all duration-300 hover:bg-teal-600 hover:border-teal-600 hover:-translate-y-1 bg-white/5" aria-label="Instagram">
                   <InstagramIcon />
                 </a>

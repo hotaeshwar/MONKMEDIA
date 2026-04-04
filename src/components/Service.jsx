@@ -185,8 +185,8 @@ function ServiceRow({ service, index }) {
               </button>
             </div>
 
-            {/* Right — locked placeholder */}
-            <div className="w-full lg:w-[42%] shrink-0">
+            {/* Right — locked placeholder — SMALLER */}
+            <div className="w-full lg:w-[36%] shrink-0">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 bg-[#0a0a0a] flex flex-col items-center justify-center gap-5">
                 <div
                   className="absolute inset-0 opacity-[0.06]"
@@ -253,22 +253,22 @@ function ServiceRow({ service, index }) {
         <div
           className={`flex flex-col gap-8 ${
             isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-          } items-center lg:gap-14 xl:gap-20 px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-20 max-w-7xl mx-auto`}
+          } items-center lg:gap-14 xl:gap-20 px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-16 max-w-7xl mx-auto`}
         >
-          {/* Image or Video */}
-          <div className="w-full lg:w-[54%] shrink-0 group">
+          {/* Image or Video — SMALLER: 42% → 36%, no hover zoom */}
+          <div className="w-full lg:w-[36%] shrink-0">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
               {service.video ? (
                 <video
                   src={service.video}
                   autoPlay muted loop playsInline
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                 />
               )}
@@ -288,7 +288,7 @@ function ServiceRow({ service, index }) {
 
           {/* Text */}
           <div
-            className={`w-full lg:w-[46%] flex flex-col gap-4 sm:gap-5 items-start text-left ${
+            className={`w-full lg:w-[64%] flex flex-col gap-4 sm:gap-5 items-start text-left ${
               isEven ? "lg:items-start lg:text-left" : "lg:items-end lg:text-right"
             }`}
           >
@@ -379,8 +379,7 @@ export default function Services() {
       `}</style>
 
       <section className="svc-root w-full bg-black overflow-hidden">
-        {/* ── HEADER ── */}
-        {/* pt-20 on mobile (80px) accounts for fixed navbar height; increases gracefully on larger screens */}
+        {/* ── HEADER — View Our Work button REMOVED ── */}
         <div
           ref={headerRef}
           className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-36 sm:pt-40 md:pt-44 lg:pt-48 pb-10 sm:pb-14 lg:pb-16 flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-16 transition-all duration-700 ease-out ${
@@ -395,19 +394,7 @@ export default function Services() {
               <span className="block w-9 h-px bg-[#2587a8]" />
             </div>
 
-            {/* View Our Work Button */}
-            <button
-              onClick={scrollToOurWork}
-              className="mb-5 sm:mb-6 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-[#d4af37] text-[#d4af37] text-xs sm:text-sm font-semibold hover:bg-[#d4af37] hover:text-black transition-all duration-300"
-            >
-              View Our Work
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
-                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            {/* Main heading — fluid type scale */}
+            {/* Main heading — View Our Work button removed */}
             <h2
               className="text-[#eee3ca] font-extrabold leading-none text-[clamp(2.8rem,10vw,7rem)]"
               style={{ fontFamily: "'Syne', sans-serif" }}

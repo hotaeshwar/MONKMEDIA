@@ -19,8 +19,7 @@ const PROJECTS = [
   { id: 52, title: "V7",                      category: "Creative",          videoSrc: "/media/work/V7 (2).mp4",                     tag: "Reel"          },
   { id: 53, title: "Video 3",                 category: "Creative",          videoSrc: "/media/work/video3.mp4",                     tag: "Reel"          },
   { id: 40, title: "MJ",                      category: "Creative",          videoSrc: "/media/work/MJ.mp4",                         tag: "Reel"          },
-
-  // ── ADVERTISEMENT (A) ──
+  // ── ADVERTISEMENT ──
   { id: 19, title: "AD",                      category: "Advertisement",     videoSrc: "/media/work/AD.mp4",                         tag: "Ad"            },
   { id: 20, title: "AD Vol. 2",               category: "Advertisement",     videoSrc: "/media/work/AD1.mp4",                        tag: "Ad"            },
   { id: 21, title: "AD Vol. 3",               category: "Advertisement",     videoSrc: "/media/work/AD2.mp4",                        tag: "Ad"            },
@@ -37,8 +36,7 @@ const PROJECTS = [
   { id: 43, title: "New AD Vol. 2",           category: "Advertisement",     videoSrc: "/media/work/NEWAD1.mp4",                     tag: "Ad"            },
   { id: 44, title: "Paint Ad",                category: "Advertisement",     videoSrc: "/media/work/PaintAd.mp4",                    tag: "Ad"            },
   { id: 54, title: "X Square Ad",             category: "Advertisement",     videoSrc: "/media/work/XSQUAREAD.mp4",                  tag: "Ad"            },
-
-  // ── FOOD & BEVERAGE (R = Restaurant) ──
+  // ── FOOD & BEVERAGE ──
   { id: 2,  title: "Epicater",                category: "Food & Beverage",   videoSrc: "/media/work/Epicater.mp4",                   tag: "Brand Film"    },
   { id: 3,  title: "Epicater Vol. 2",         category: "Food & Beverage",   videoSrc: "/media/work/Epicater2.mp4",                  tag: "Brand Film"    },
   { id: 6,  title: "Goli Soda",               category: "Food & Beverage",   videoSrc: "/media/work/GOLI SODA.mp4",                  tag: "Brand Film"    },
@@ -46,17 +44,14 @@ const PROJECTS = [
   { id: 8,  title: "Goli Soda Vol. 3",        category: "Food & Beverage",   videoSrc: "/media/work/GOLISODA3.mp4",                  tag: "Brand Film"    },
   { id: 9,  title: "Goli Soda Vol. 4",        category: "Food & Beverage",   videoSrc: "/media/work/GOLISODA4.mp4",                  tag: "Brand Film"    },
   { id: 39, title: "Maharaja",                category: "Food & Beverage",   videoSrc: "/media/work/MAHARAJA.mp4",                   tag: "Brand Film"    },
-
-  // ── PERSONAL BRANDING (P) ──
+  // ── PERSONAL BRANDING ──
   { id: 10, title: "Sushant",                 category: "Personal Branding", videoSrc: "/media/work/SUSHANT.mp4",                    tag: "Personal Brand"},
   { id: 31, title: "Atul",                    category: "Personal Branding", videoSrc: "/media/work/ATUL7.mp4",                      tag: "Personal Brand"},
   { id: 35, title: "Dipit Bhai",              category: "Personal Branding", videoSrc: "/media/work/DIPITBHAI.mp4",                  tag: "Personal Brand"},
-
-  // ── CONSTRUCTION (C) ──
+  // ── CONSTRUCTION ──
   { id: 4,  title: "Everlend",                category: "Construction",      videoSrc: "/media/work/EVERLAND.mp4",                   tag: "Brand Film"    },
   { id: 5,  title: "Everlend Reel",           category: "Construction",      videoSrc: "/media/work/Everlend1.mp4",                  tag: "Brand Film"    },
-
-  // ── LOCAL BUSINESS (L) ──
+  // ── LOCAL / OTHER ──
   { id: 11, title: "Baby Reel",               category: "Lifestyle",         videoSrc: "/media/work/BABY.mp4",                       tag: "Lifestyle"     },
   { id: 12, title: "Covertee",                category: "Fashion & Apparel", videoSrc: "/media/work/covertee.mp4",                   tag: "Brand Film"    },
   { id: 32, title: "Corvette Reel",           category: "Automotive",        videoSrc: "/media/work/CorvetteReel.mp4",               tag: "Brand Film"    },
@@ -70,9 +65,9 @@ const PROJECTS = [
 
 /* ─── CLIENT SITES ─── */
 const CLIENT_SITES = [
-  { url: "https://everlend.ca",       label: "everlend.ca",       tagline: "Lending, simplified.",           image: "/media/website/everland.png"  },
-  { url: "https://laundryforall.com", label: "laundryforall.com", tagline: "On-demand laundry, delivered.",  image: "/media/website/lfa.png"       },
-  { url: "https://barberscave.ca",    label: "barberscave.ca",    tagline: "Premium barbershop experience.", image: "/media/website/babercave.png" },
+  { id: 1, url: "https://everlend.ca",       label: "everlend.ca",       tagline: "Lending, simplified.",           image: "/media/website/everland.png"  },
+  { id: 2, url: "https://laundryforall.com", label: "laundryforall.com", tagline: "On-demand laundry, delivered.",  image: "/media/website/lfa.png"       },
+  { id: 3, url: "https://barberscave.ca",    label: "barberscave.ca",    tagline: "Premium barbershop experience.", image: "/media/website/babercave.png" },
 ];
 
 /* ─── useReveal ─── */
@@ -95,11 +90,14 @@ function useReveal(threshold = 0.08) {
   return [ref, on];
 }
 
+/* ─── BackButton ─── */
 function BackButton({ onClick }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <button onClick={onClick}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         position: "absolute", top: "16px", left: "16px", zIndex: 10,
         display: "flex", alignItems: "center", gap: "8px",
@@ -107,7 +105,8 @@ function BackButton({ onClick }) {
         border: `1px solid ${hovered ? "#2587a8" : "rgba(238,227,202,0.18)"}`,
         borderRadius: "999px", padding: "8px 16px 8px 10px",
         cursor: "pointer", transition: "all 0.28s cubic-bezier(.22,1,.36,1)", backdropFilter: "blur(8px)",
-      }}>
+      }}
+    >
       <span style={{
         display: "flex", alignItems: "center", justifyContent: "center",
         width: "22px", height: "22px", borderRadius: "50%",
@@ -117,14 +116,23 @@ function BackButton({ onClick }) {
       }}>
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
           stroke={hovered ? "#fff" : "#eee3ca"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="15 18 9 12 15 6"/>
+          <polyline points="15 18 9 12 15 6" />
         </svg>
       </span>
-      <span style={{ fontSize: "12px", fontWeight: 600, color: hovered ? "#fff" : "#eee3ca", letterSpacing: "0.06em", fontFamily: "'Syne', sans-serif", transition: "color 0.28s" }}>Close</span>
+      <span style={{
+        fontSize: "12px", fontWeight: 600,
+        color: hovered ? "#fff" : "#eee3ca",
+        letterSpacing: "0.06em",
+        fontFamily: "'Syne', sans-serif",
+        transition: "color 0.28s",
+      }}>
+        Close
+      </span>
     </button>
   );
 }
 
+/* ─── VideoModal ─── */
 function VideoModal({ project, onClose }) {
   const videoRef = useRef(null);
   useEffect(() => {
@@ -132,37 +140,62 @@ function VideoModal({ project, onClose }) {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     if (videoRef.current) videoRef.current.play();
-    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
   }, [onClose]);
+
   return (
-    <div onClick={onClose} style={{
-      position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.95)", backdropFilter: "blur(14px)",
-      display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", animation: "wFadeIn 0.3s ease",
-    }}>
-      <div onClick={e => e.stopPropagation()} style={{
-        position: "relative", width: "min(92vw, 440px)", borderRadius: "22px", overflow: "hidden", background: "#000",
-        boxShadow: "0 40px 100px rgba(0,0,0,0.85), 0 0 0 1px rgba(37,135,168,0.25)", animation: "wZoomIn 0.38s cubic-bezier(.22,1,.36,1)",
-      }}>
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 9999,
+        background: "rgba(0,0,0,0.95)", backdropFilter: "blur(14px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "20px", animation: "wFadeIn 0.3s ease",
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative", width: "min(92vw, 440px)",
+          borderRadius: "22px", overflow: "hidden", background: "#000",
+          boxShadow: "0 40px 100px rgba(0,0,0,0.85), 0 0 0 1px rgba(37,135,168,0.25)",
+          animation: "wZoomIn 0.38s cubic-bezier(.22,1,.36,1)",
+        }}
+      >
         <BackButton onClick={onClose} />
         <div style={{
-          padding: "14px 60px", background: "rgba(13,13,13,0.95)", borderBottom: "1px solid rgba(238,227,202,0.06)",
-          display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", flexWrap: "wrap",
+          padding: "14px 60px",
+          background: "rgba(13,13,13,0.95)",
+          borderBottom: "1px solid rgba(238,227,202,0.06)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          gap: "10px", flexWrap: "wrap",
         }}>
-          <span style={{ fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#2587a8", fontFamily: "'DM Sans', sans-serif" }}>{project.category}</span>
+          <span style={{ fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#2587a8", fontFamily: "'DM Sans', sans-serif" }}>
+            {project.category}
+          </span>
           <span style={{ color: "rgba(238,227,202,0.2)", fontSize: "10px" }}>•</span>
-          <span style={{ fontSize: "12px", fontWeight: 700, color: "#eee3ca", fontFamily: "'Syne', sans-serif" }}>{project.title}</span>
+          <span style={{ fontSize: "12px", fontWeight: 700, color: "#eee3ca", fontFamily: "'Syne', sans-serif" }}>
+            {project.title}
+          </span>
         </div>
-        <video ref={videoRef} src={project.videoSrc} controls playsInline autoPlay
-          style={{ width: "100%", display: "block", background: "#000", maxHeight: "82vh", objectFit: "contain" }} />
+        <video
+          ref={videoRef}
+          src={project.videoSrc}
+          controls
+          playsInline
+          autoPlay
+          style={{ width: "100%", display: "block", background: "#000", maxHeight: "82vh", objectFit: "contain" }}
+        />
         <div style={{ height: "3px", background: "linear-gradient(to right,#d4af37,#2587a8,#d4af37)" }} />
       </div>
     </div>
   );
 }
 
-/* ─────────────────────────────────────────────────────────────
-   ProjectCard
-───────────────────────────────────────────────────────────── */
+/* ─── ProjectCard ─── */
 function ProjectCard({ project, index, visible, onClick }) {
   const [hovered, setHovered] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -176,7 +209,11 @@ function ProjectCard({ project, index, visible, onClick }) {
     if (!video || !card) return;
     const tryPlay = () => { if (video.src) video.play().catch(() => {}); };
     const nearIO = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !video.src) { video.src = project.videoSrc; video.load(); setLoaded(true); }
+      if (entry.isIntersecting && !video.src) {
+        video.src = project.videoSrc;
+        video.load();
+        setLoaded(true);
+      }
     }, { rootMargin: "500px 0px 500px 0px", threshold: 0 });
     nearIO.observe(card);
     const visibleIO = new IntersectionObserver(
@@ -186,12 +223,19 @@ function ProjectCard({ project, index, visible, onClick }) {
     visibleIO.observe(card);
     const onGesture = () => tryPlay();
     document.addEventListener("touchstart", onGesture, { once: true });
-    return () => { nearIO.disconnect(); visibleIO.disconnect(); document.removeEventListener("touchstart", onGesture); };
+    return () => {
+      nearIO.disconnect();
+      visibleIO.disconnect();
+      document.removeEventListener("touchstart", onGesture);
+    };
   }, [project.videoSrc]);
 
   return (
-    <div ref={cardRef} onClick={onClick}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+    <div
+      ref={cardRef}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
         width: "100%", aspectRatio: "9 / 16", position: "relative",
         cursor: "pointer", borderRadius: "18px", overflow: "hidden",
@@ -201,20 +245,24 @@ function ProjectCard({ project, index, visible, onClick }) {
         border: hovered ? "1.5px solid rgba(37,135,168,0.7)" : "1px solid rgba(238,227,202,0.08)",
         boxShadow: hovered ? "0 24px 56px rgba(37,135,168,0.25), 0 4px 16px rgba(0,0,0,0.7)" : "0 4px 24px rgba(0,0,0,0.5)",
         background: "#111",
-      }}>
+      }}
+    >
       {!loaded && (
         <div style={{ position: "absolute", inset: 0, zIndex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#0d0d0d" }}>
           <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid rgba(37,135,168,0.3)", borderTopColor: "#2587a8", animation: "ow-spin 0.9s linear infinite" }} />
         </div>
       )}
-      <video ref={videoRef} muted playsInline loop preload="auto"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block", zIndex: 1, opacity: loaded ? 1 : 0, transition: "opacity 0.4s ease" }} />
+      <video
+        ref={videoRef}
+        muted playsInline loop preload="auto"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block", zIndex: 1, opacity: loaded ? 1 : 0, transition: "opacity 0.4s ease" }}
+      />
       <div style={{ position: "absolute", inset: 0, zIndex: 2, background: hovered ? "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.06) 50%, transparent 100%)" : "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.08) 55%, transparent 100%)", transition: "background 0.35s ease" }} />
       <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 3, background: "rgba(0,0,0,0.65)", border: "1px solid rgba(37,135,168,0.5)", borderRadius: "999px", padding: "3px 10px", backdropFilter: "blur(6px)" }}>
         <span style={{ fontSize: "9px", color: "#2587a8", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif" }}>{project.tag}</span>
       </div>
       <div style={{ position: "absolute", top: "50%", left: "50%", transform: `translate(-50%, -50%) scale(${hovered ? 1 : 0.7})`, zIndex: 3, width: "52px", height: "52px", borderRadius: "50%", background: "rgba(0,0,0,0.45)", border: "2px solid rgba(238,227,202,0.6)", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(4px)", opacity: hovered ? 1 : 0, transition: "opacity 0.25s ease, transform 0.3s cubic-bezier(.22,1,.36,1)" }}>
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="#eee3ca"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#eee3ca"><polygon points="5 3 19 12 5 21 5 3" /></svg>
       </div>
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 3, padding: "14px 14px 16px" }}>
         <p style={{ fontSize: "9px", color: "#2587a8", letterSpacing: "0.16em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", marginBottom: "3px" }}>{project.category}</p>
@@ -226,11 +274,10 @@ function ProjectCard({ project, index, visible, onClick }) {
   );
 }
 
-/* ════════════════════════════════════════════════════════════
-   SiteCard
-════════════════════════════════════════════════════════════ */
-function SiteCard({ site }) {
+/* ─── SiteCard for Carousel ─── */
+function SiteCard({ site, isActive }) {
   const [hovered, setHovered] = useState(false);
+
   return (
     <a
       href={site.url}
@@ -241,120 +288,293 @@ function SiteCard({ site }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: "flex", flexDirection: "column",
-        borderRadius: "16px", overflow: "hidden",
-        border: hovered ? "1.5px solid rgba(37,135,168,0.7)" : "1px solid rgba(37,135,168,0.2)",
+        borderRadius: "20px", overflow: "hidden",
+        border: hovered ? "1.5px solid rgba(37,135,168,0.8)" : "1px solid rgba(37,135,168,0.25)",
         background: "#0a0a0a",
         textDecoration: "none",
-        boxShadow: hovered ? "0 20px 48px rgba(37,135,168,0.18), 0 4px 16px rgba(0,0,0,0.6)" : "0 6px 24px rgba(0,0,0,0.5)",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        transition: "transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s, border-color 0.3s",
-        cursor: "pointer", width: "100%", flexShrink: 0,
+        boxShadow: hovered 
+          ? "0 25px 50px rgba(37,135,168,0.25), 0 0 0 1px rgba(37,135,168,0.1)" 
+          : "0 10px 30px rgba(0,0,0,0.5)",
+        transform: hovered ? "translateY(-8px) scale(1.02)" : "translateY(0) scale(1)",
+        transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+        cursor: "pointer",
+        width: "100%",
+        maxWidth: "500px",
+        margin: "0 auto",
       }}
     >
+      {/* Screenshot */}
       <div style={{ width: "100%", aspectRatio: "16 / 9", background: "#111", overflow: "hidden", position: "relative", flexShrink: 0 }}>
-        <img src={site.image} alt={site.label} draggable={false}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-        <div style={{ position: "absolute", inset: 0, background: hovered ? "rgba(37,135,168,0.08)" : "transparent", transition: "background 0.3s ease", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%)", pointerEvents: "none" }} />
+        <img
+          src={site.image}
+          alt={site.label}
+          draggable={false}
+          style={{ 
+            width: "100%", height: "100%", 
+            objectFit: "cover", objectPosition: "center top", 
+            display: "block",
+            transition: "transform 0.5s ease",
+            transform: hovered ? "scale(1.05)" : "scale(1)",
+          }}
+        />
+        <div style={{ position: "absolute", inset: 0, background: hovered ? "linear-gradient(135deg, rgba(37,135,168,0.2), transparent)" : "transparent", transition: "background 0.3s ease", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 100%)", pointerEvents: "none" }} />
+
+        {/* Visit site pill */}
         <div style={{
-          position: "absolute", bottom: "12px", right: "12px",
-          background: hovered ? "#2587a8" : "rgba(0,0,0,0.7)",
-          border: `1px solid ${hovered ? "#2587a8" : "rgba(37,135,168,0.4)"}`,
-          borderRadius: "999px", padding: "5px 12px",
-          display: "flex", alignItems: "center", gap: "5px",
-          backdropFilter: "blur(6px)", transition: "background 0.3s, border-color 0.3s",
+          position: "absolute", bottom: "16px", right: "16px",
+          background: hovered ? "#2587a8" : "rgba(0,0,0,0.8)",
+          border: `1px solid ${hovered ? "#2587a8" : "rgba(37,135,168,0.5)"}`,
+          borderRadius: "999px", padding: "6px 14px",
+          display: "flex", alignItems: "center", gap: "6px",
+          backdropFilter: "blur(8px)", transition: "all 0.3s ease",
+          transform: hovered ? "translateX(-4px)" : "translateX(0)",
         }}>
-          <span style={{ fontSize: "10px", fontWeight: 600, color: "#fff", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.06em" }}>Visit site</span>
-          <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          <span style={{ fontSize: "11px", fontWeight: 700, color: "#fff", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.08em" }}>Visit site</span>
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
           </svg>
         </div>
       </div>
-      <div style={{ padding: "12px 16px 14px", borderTop: "1px solid rgba(238,227,202,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+
+      {/* Footer */}
+      <div style={{ padding: "16px 20px 18px", borderTop: "1px solid rgba(238,227,202,0.06)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", background: "#0d0d0d" }}>
         <div>
-          <p style={{ fontSize: "13px", fontWeight: 700, color: hovered ? "#2587a8" : "#eee3ca", fontFamily: "'Syne', sans-serif", letterSpacing: "0.02em", marginBottom: "3px", transition: "color 0.3s" }}>{site.label}</p>
-          <p style={{ fontSize: "11px", color: "rgba(238,227,202,0.38)", fontFamily: "'DM Sans', sans-serif" }}>{site.tagline}</p>
+          <p style={{ fontSize: "15px", fontWeight: 800, color: hovered ? "#2587a8" : "#eee3ca", fontFamily: "'Syne', sans-serif", letterSpacing: "0.02em", marginBottom: "4px", transition: "color 0.3s" }}>{site.label}</p>
+          <p style={{ fontSize: "11px", color: "rgba(238,227,202,0.45)", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.02em" }}>{site.tagline}</p>
         </div>
         <div style={{
-          flexShrink: 0, width: "30px", height: "30px", borderRadius: "50%",
+          flexShrink: 0, width: "34px", height: "34px", borderRadius: "50%",
           background: hovered ? "rgba(37,135,168,0.25)" : "rgba(37,135,168,0.1)",
-          border: `1px solid ${hovered ? "rgba(37,135,168,0.7)" : "rgba(37,135,168,0.3)"}`,
+          border: `1.5px solid ${hovered ? "rgba(37,135,168,0.8)" : "rgba(37,135,168,0.35)"}`,
           display: "flex", alignItems: "center", justifyContent: "center",
-          transition: "background 0.3s, border-color 0.3s",
+          transition: "all 0.3s ease",
+          transform: hovered ? "rotate(45deg)" : "rotate(0deg)",
         }}>
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#2587a8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            style={{ transform: hovered ? "translate(1px,-1px)" : "none", transition: "transform 0.3s" }}>
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#2587a8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
           </svg>
         </div>
       </div>
+
+      {/* Bottom accent bar */}
       <div style={{
-        height: "2px", flexShrink: 0,
-        background: hovered ? "linear-gradient(to right,#d4af37,#2587a8,#d4af37)" : "linear-gradient(to right,rgba(212,175,55,0.15),rgba(37,135,168,0.15),rgba(212,175,55,0.15))",
-        transition: "background 0.35s ease",
+        height: "3px", flexShrink: 0,
+        background: hovered
+          ? "linear-gradient(90deg, #d4af37, #2587a8, #d4af37)"
+          : "linear-gradient(90deg, rgba(212,175,55,0.2), rgba(37,135,168,0.2), rgba(212,175,55,0.2))",
+        transition: "all 0.35s ease",
       }} />
     </a>
   );
 }
 
 /* ════════════════════════════════════════════════════════════
-   SitesCarousel
+   SitesCarousel — Auto-sliding carousel (Owl Carousel style)
+   No repetition, no infinite loop, stops at last card
 ════════════════════════════════════════════════════════════ */
 function SitesCarousel({ visible }) {
   const total = CLIENT_SITES.length;
-  const [current, setCurrent] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef(null);
+  const carouselRef = useRef(null);
 
+  // Auto-slide functionality
   useEffect(() => {
-    const t = setInterval(() => {
-      setCurrent(c => (c + 1) % total);
-    }, 2000);
-    return () => clearInterval(t);
-  }, [total]);
+    if (!visible || !isPlaying) return;
+    
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex(prev => {
+        if (prev >= total - 1) {
+          // Stop at last card, don't loop
+          setIsPlaying(false);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 4000); // 4 seconds per slide
+    
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [visible, isPlaying, total]);
+
+  // Pause on hover
+  const handleMouseEnter = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setIsPlaying(false);
+  };
+
+  const handleMouseLeave = () => {
+    if (currentIndex < total - 1) {
+      setIsPlaying(true);
+    }
+  };
+
+  // Navigation functions
+  const goToPrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1);
+      // Restart auto-play if it was stopped
+      if (!isPlaying && currentIndex < total - 1) {
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const goToNext = () => {
+    if (currentIndex < total - 1) {
+      setCurrentIndex(prev => prev + 1);
+    }
+  };
 
   return (
-    <div style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(24px)",
-      transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1,.36,1)",
-      maxWidth: "380px", margin: "0 auto",
-    }}>
-      <div style={{ overflow: "hidden", borderRadius: "16px" }}>
+    <div 
+      className="sites-carousel"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        maxWidth: "560px",
+        margin: "0 auto",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(30px)",
+        transition: "opacity 0.7s ease 0.2s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s",
+        position: "relative",
+      }}
+    >
+      {/* Carousel Container */}
+      <div ref={carouselRef} style={{ overflow: "hidden", borderRadius: "20px" }}>
         <div style={{
           display: "flex",
-          transform: `translateX(calc(-${current * 100}%))`,
-          transition: "transform 0.45s cubic-bezier(.22,1,.36,1)",
+          transform: `translateX(-${currentIndex * 100}%)`,
+          transition: "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         }}>
-          {CLIENT_SITES.map((site) => (
-            <div key={site.url} style={{ minWidth: "100%", boxSizing: "border-box" }}>
-              <SiteCard site={site} />
+          {CLIENT_SITES.map((site, idx) => (
+            <div key={site.id} style={{ minWidth: "100%", boxSizing: "border-box", padding: "0 8px" }}>
+              <SiteCard site={site} isActive={idx === currentIndex} />
             </div>
           ))}
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginTop: "14px" }}>
-        {CLIENT_SITES.map((_, i) => (
-          <span key={i} style={{
-            display: "block",
-            width: i === current ? "22px" : "6px",
-            height: "6px", borderRadius: "999px",
-            background: i === current ? "#2587a8" : "rgba(37,135,168,0.25)",
-            transition: "width 0.35s cubic-bezier(.22,1,.36,1), background 0.3s",
-          }} />
+
+      {/* Navigation Arrows - Only show if not at ends */}
+      {currentIndex > 0 && (
+        <button
+          onClick={goToPrevious}
+          style={{
+            position: "absolute",
+            left: "-20px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            background: "rgba(0,0,0,0.7)",
+            border: "1px solid rgba(37,135,168,0.4)",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s ease",
+            backdropFilter: "blur(8px)",
+            zIndex: 10,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#2587a8";
+            e.currentTarget.style.borderColor = "#2587a8";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(0,0,0,0.7)";
+            e.currentTarget.style.borderColor = "rgba(37,135,168,0.4)";
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eee3ca" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+      )}
+
+      {currentIndex < total - 1 && (
+        <button
+          onClick={goToNext}
+          style={{
+            position: "absolute",
+            right: "-20px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            background: "rgba(0,0,0,0.7)",
+            border: "1px solid rgba(37,135,168,0.4)",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s ease",
+            backdropFilter: "blur(8px)",
+            zIndex: 10,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#2587a8";
+            e.currentTarget.style.borderColor = "#2587a8";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(0,0,0,0.7)";
+            e.currentTarget.style.borderColor = "rgba(37,135,168,0.4)";
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eee3ca" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
+      )}
+
+      {/* Progress Indicator */}
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "10px",
+        marginTop: "24px",
+      }}>
+        {CLIENT_SITES.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              setCurrentIndex(idx);
+              if (idx < total - 1) setIsPlaying(true);
+              else setIsPlaying(false);
+            }}
+            style={{
+              width: idx === currentIndex ? "32px" : "8px",
+              height: "4px",
+              borderRadius: "2px",
+              background: idx === currentIndex 
+                ? "linear-gradient(90deg, #d4af37, #2587a8)"
+                : "rgba(255,255,255,0.2)",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              border: "none",
+            }}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-/* ══════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════
    MAIN
-══════════════════════════════════════════════════ */
+════════════════════════════════════════════════════════════ */
 export default function OurWork() {
   const [sectionRef, sectionVisible] = useReveal(0.04);
-  const [gridRef, gridVisible] = useReveal(0.06);
-  const [ctaRef, ctaVisible] = useReveal(0.1);
+  const [gridRef, gridVisible]       = useReveal(0.06);
+  const [ctaRef, ctaVisible]         = useReveal(0.1);
   const [activeProject, setActiveProject] = useState(null);
 
   return (
@@ -376,10 +596,29 @@ export default function OurWork() {
         @keyframes ow-spin  { to { transform: rotate(360deg); } }
         .ow-cta-wrap { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1,.36,1); }
         .ow-cta-wrap.on { opacity: 1; transform: translateY(0); }
+        
+        /* Responsive carousel arrows */
+        @media (max-width: 768px) {
+          .sites-carousel button {
+            width: 36px !important;
+            height: 36px !important;
+            left: -10px !important;
+            right: -10px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .sites-carousel button {
+            display: none !important;
+          }
+        }
       `}</style>
 
-      {/* ADDED id="our-work" HERE */}
-      <section id="our-work" ref={sectionRef} className="ow-wrap relative w-full py-20 px-4 sm:px-8 overflow-hidden" style={{ background: "#000" }}>
+      <section
+        id="our-work"
+        ref={sectionRef}
+        className="ow-wrap relative w-full py-20 px-4 sm:px-8 overflow-hidden"
+        style={{ background: "#000" }}
+      >
         <div className="absolute inset-0 ow-dot-grid opacity-[0.04] pointer-events-none" />
         <div className="absolute top-[-80px] left-1/4 w-[440px] h-[440px] rounded-full opacity-[0.05] blur-3xl pointer-events-none"
           style={{ background: "radial-gradient(circle,#2587a8,transparent 70%)" }} />
@@ -388,6 +627,7 @@ export default function OurWork() {
 
         <div className="relative z-10 max-w-7xl mx-auto">
 
+          {/* ── Section Header ── */}
           <div className={`ow-hdr ${sectionVisible ? "on" : ""} text-center mb-12`}>
             <p className="flex items-center justify-center gap-3 text-xs tracking-[0.22em] uppercase mb-5" style={{ color: "#555" }}>
               <span className="block w-10 h-px" style={{ background: "#2587a8" }} />
@@ -403,21 +643,44 @@ export default function OurWork() {
             </p>
           </div>
 
+          {/* ── Video Grid ── */}
           <div ref={gridRef} className="ow-grid">
             {PROJECTS.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} visible={gridVisible} onClick={() => setActiveProject(project)} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={i}
+                visible={gridVisible}
+                onClick={() => setActiveProject(project)}
+              />
             ))}
           </div>
 
-          <div ref={ctaRef} className={`ow-cta-wrap ${ctaVisible ? "on" : ""} mt-16`}>
-            <div style={{ textAlign: "center", marginBottom: "28px" }}>
-              <p style={{ fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#555", fontFamily: "'DM Sans', sans-serif", marginBottom: "6px" }}>
+          {/* ── Live Sites Carousel ── */}
+          <div ref={ctaRef} className={`ow-cta-wrap ${ctaVisible ? "on" : ""} mt-20`}>
+            <div style={{ textAlign: "center", marginBottom: "32px" }}>
+              <p style={{ 
+                fontSize: "12px", 
+                letterSpacing: "0.25em", 
+                textTransform: "uppercase", 
+                color: "#2587a8", 
+                fontFamily: "'DM Sans', sans-serif", 
+                marginBottom: "10px",
+                fontWeight: 600,
+              }}>
                 Live projects we've built
               </p>
-              <p style={{ fontSize: "14px", color: "rgba(238,227,202,0.45)", fontFamily: "'DM Sans', sans-serif" }}>
+              <p style={{ 
+                fontSize: "15px", 
+                color: "rgba(238,227,202,0.55)", 
+                fontFamily: "'DM Sans', sans-serif",
+                letterSpacing: "0.02em",
+              }}>
                 Explore the digital work beyond the screen.
               </p>
             </div>
+
+            {/* Auto-sliding carousel without repetition */}
             <SitesCarousel visible={ctaVisible} />
           </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { X, TrendingUp, Users, Clock, Zap, Star, Award, Briefcase, ChevronRight, BarChart3, Eye, Building2, UserCheck, Home, Hammer, Video, Briefcase as BriefcaseIcon } from "lucide-react";
+import { X, TrendingUp, Users, Clock, Zap, Star, Award, Briefcase, ChevronRight, BarChart3, Eye, Building2, Home, Hammer, Video, Briefcase as BriefcaseIcon } from "lucide-react";
 
 const caseStudies = [
   {
@@ -79,7 +79,6 @@ const caseStudies = [
   },
 ];
 
-// Client images array (you can replace these with actual image paths later)
 const CLIENT_IMAGES = [
   "/media/client/A4.png",
   "/media/client/A5.png",
@@ -129,7 +128,7 @@ function useReveal(threshold = 0.1) {
   return [ref, visible];
 }
 
-// Animated Counter Component
+// ── FIXED AnimatedCounter ──
 function AnimatedCounter({ targetValue, suffix = "", prefix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
   const counterRef = useRef(null);
@@ -142,8 +141,6 @@ function AnimatedCounter({ targetValue, suffix = "", prefix = "", duration = 200
   };
 
   const numericTarget = getNumericValue(targetValue);
-  const isPercentage = targetValue.toString().includes("%");
-  const hasPlus = targetValue.toString().includes("+");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -151,14 +148,13 @@ function AnimatedCounter({ targetValue, suffix = "", prefix = "", duration = 200
         if (entries[0].isIntersecting && !hasAnimated) {
           setHasAnimated(true);
           let startTime = null;
-          const startValue = 0;
           const endValue = numericTarget;
 
           const animateCount = (currentTime) => {
             if (!startTime) startTime = currentTime;
             const progress = Math.min((currentTime - startTime) / duration, 1);
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const currentValue = startValue + (endValue - startValue) * easeOutQuart;
+            const currentValue = easeOutQuart * endValue;
             setCount(Math.floor(currentValue));
             if (progress < 1) {
               requestAnimationFrame(animateCount);
@@ -172,18 +168,12 @@ function AnimatedCounter({ targetValue, suffix = "", prefix = "", duration = 200
       { threshold: 0.3 }
     );
 
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
-    }
+    if (counterRef.current) observer.observe(counterRef.current);
     return () => observer.disconnect();
   }, [numericTarget, duration, hasAnimated]);
 
-  const formatDisplay = () => {
-    if (isPercentage) {
-      return `${prefix}${count}%${suffix}${hasPlus ? "+" : ""}`;
-    }
-    return `${prefix}${count}${suffix}${hasPlus ? "+" : ""}`;
-  };
+  // FIX: just render prefix + count + suffix — no double-appending
+  const formatDisplay = () => `${prefix}${count}${suffix}`;
 
   return <span ref={counterRef}>{formatDisplay()}</span>;
 }
@@ -202,10 +192,10 @@ export default function MergedComponent() {
   useEffect(() => {
     const o2 = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisibleCards(true); }, { threshold: 0.05 });
     const statsObserver = new IntersectionObserver(([e]) => { if (e.isIntersecting) setStatsVisible(true); }, { threshold: 0.3 });
-    
+
     if (cardsRef.current) o2.observe(cardsRef.current);
     if (statsRef.current) statsObserver.observe(statsRef.current);
-    
+
     return () => {
       o2.disconnect();
       statsObserver.disconnect();
@@ -233,18 +223,18 @@ export default function MergedComponent() {
   }, []);
 
   const statsData = [
-    { value: "150+", label: "Projects Delivered", icon: Briefcase, numericValue: 150, suffix: "+" },
-    { value: "98%", label: "Client Satisfaction", icon: Star, numericValue: 98, suffix: "%" },
-    { value: "24/7", label: "Support Available", icon: Clock, numericValue: 24, suffix: "/7", prefix: "" },
-    { value: "50M+", label: "Revenue Generated", icon: TrendingUp, numericValue: 50, suffix: "M+", prefix: "$" },
+    { value: "150+", label: "Projects Delivered", icon: Briefcase, numericValue: 150, suffix: "+",  prefix: ""  },
+    { value: "98%",  label: "Client Satisfaction", icon: Star,     numericValue: 98,  suffix: "%",  prefix: ""  },
+    { value: "24/7", label: "Support Available",   icon: Clock,    numericValue: 24,  suffix: "/7", prefix: ""  },
+    { value: "50M+", label: "Revenue Generated",   icon: TrendingUp, numericValue: 50, suffix: "M+", prefix: "$" },
   ];
 
   const getCategoryIcon = (category) => {
-    if (category.includes("Social")) return <BarChart3 size={14} />;
-    if (category.includes("B2B")) return <Building2 size={14} />;
+    if (category.includes("Social"))      return <BarChart3 size={14} />;
+    if (category.includes("B2B"))         return <Building2 size={14} />;
     if (category.includes("Real Estate")) return <Home size={14} />;
-    if (category.includes("Renovation")) return <Hammer size={14} />;
-    if (category.includes("Mortgage")) return <Video size={14} />;
+    if (category.includes("Renovation"))  return <Hammer size={14} />;
+    if (category.includes("Mortgage"))    return <Video size={14} />;
     return <BriefcaseIcon size={14} />;
   };
 
@@ -255,11 +245,11 @@ export default function MergedComponent() {
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
         .ow-bebas { font-family: 'Bebas Neue', sans-serif; }
-        .ow-dm { font-family: 'DM Sans', sans-serif; }
+        .ow-dm    { font-family: 'DM Sans', sans-serif; }
 
         @keyframes scrollLeft {
           from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          to   { transform: translateX(-50%); }
         }
         .track-single {
           display: flex;
@@ -270,12 +260,8 @@ export default function MergedComponent() {
         .track-single:hover { animation-play-state: paused; }
 
         .carousel-mask {
-          -webkit-mask-image: linear-gradient(
-            to right, transparent 0%, black 6%, black 94%, transparent 100%
-          );
-          mask-image: linear-gradient(
-            to right, transparent 0%, black 6%, black 94%, transparent 100%
-          );
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
         }
 
         .reel-card {
@@ -290,17 +276,13 @@ export default function MergedComponent() {
           box-shadow: 0 24px 52px rgba(37,135,168,0.25);
         }
         .reel-card img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
+          width: 100%; height: 100%; object-fit: cover; display: block;
           transition: filter 0.35s ease;
         }
         .reel-card:hover img { filter: brightness(1.1); }
 
         .reveal {
-          opacity: 0;
-          transform: translateY(36px);
+          opacity: 0; transform: translateY(36px);
           transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1),
                       transform 0.85s cubic-bezier(0.22,1,0.36,1);
         }
@@ -311,8 +293,7 @@ export default function MergedComponent() {
         .reveal.d4 { transition-delay: 0.46s; }
 
         .carousel-reveal {
-          opacity: 0;
-          transform: translateY(50px);
+          opacity: 0; transform: translateY(50px);
           transition: opacity 1s cubic-bezier(0.22,1,0.36,1),
                       transform 1s cubic-bezier(0.22,1,0.36,1);
           transition-delay: 0.12s;
@@ -321,7 +302,6 @@ export default function MergedComponent() {
 
         .case-card {
           background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-          backdrop-filter: blur(0px);
           transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
         }
         .case-card:hover {
@@ -336,7 +316,6 @@ export default function MergedComponent() {
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          text-shadow: none;
         }
 
         .metric-badge {
@@ -375,7 +354,6 @@ export default function MergedComponent() {
           position: absolute; top: 18px; right: 18px; z-index: 20;
           width: 42px; height: 42px; border-radius: 50%;
           background: rgba(37,135,168,0.15); border: 1px solid rgba(37,135,168,0.3);
-          backdrop-filter: blur(12px);
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; color: #eee3ca;
           transition: all 0.3s ease;
@@ -402,10 +380,6 @@ export default function MergedComponent() {
         }
         @media (min-width: 640px) {
           .stat-number { font-size: 3rem; }
-        }
-
-        .section-tag {
-          background: linear-gradient(135deg, #2587a8 0%, #1a6b85 100%);
         }
       `}</style>
 
@@ -493,7 +467,7 @@ export default function MergedComponent() {
       >
         <div className="absolute w-[600px] h-[600px] bg-[#2587a8]/[0.03] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute w-[400px] h-[400px] bg-[#2587a8]/[0.02] bottom-0 right-0 rounded-full blur-[100px] pointer-events-none" />
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={cardsRef} className={`reveal ${visibleCards ? "visible" : ""} text-center mb-16 sm:mb-20`}>
             <div className="flex items-center justify-center gap-3 mb-5">
@@ -520,7 +494,7 @@ export default function MergedComponent() {
                   className="case-card group relative cursor-pointer rounded-2xl border border-white/[0.08] p-6 sm:p-7 transition-all duration-500"
                 >
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#2587a8]/0 via-transparent to-[#2587a8]/0 group-hover:from-[#2587a8]/5 group-hover:to-[#2587a8]/5 transition-all duration-500 pointer-events-none" />
-                  
+
                   <div className="flex items-start justify-between mb-4">
                     <span className="case-number text-6xl sm:text-7xl font-black opacity-30 group-hover:opacity-50 transition-opacity">
                       {study.id}
@@ -547,10 +521,7 @@ export default function MergedComponent() {
                     {study.metrics.map((metric, i) => {
                       const MetricIcon = metric.icon;
                       return (
-                        <div
-                          key={i}
-                          className="metric-badge flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold"
-                        >
+                        <div key={i} className="metric-badge flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold">
                           <MetricIcon size={12} className="text-[#2587a8]" />
                           <span className="text-[#eee3ca]/80">{metric.value}</span>
                         </div>
@@ -569,19 +540,24 @@ export default function MergedComponent() {
             </div>
           </div>
 
-          <div ref={statsRef} className={`reveal ${visibleCards ? "visible" : ""} mt-16 sm:mt-20 pt-8 border-t border-white/[0.05]`} style={{ transitionDelay: "0.35s" }}>
+          {/* ── STATS ── */}
+          <div
+            ref={statsRef}
+            className={`reveal ${visibleCards ? "visible" : ""} mt-16 sm:mt-20 pt-8 border-t border-white/[0.05]`}
+            style={{ transitionDelay: "0.35s" }}
+          >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {statsData.map((stat, i) => {
                 const StatIcon = stat.icon;
                 return (
                   <div key={i} className="space-y-2 group">
                     <StatIcon size={24} className="text-[#2587a8] mx-auto opacity-60 group-hover:opacity-100 transition-opacity" />
-                    <div className="stat-number text-3xl sm:text-4xl font-bold text-[#eee3ca]">
+                    <div className="stat-number text-[#eee3ca]">
                       {statsVisible ? (
-                        <AnimatedCounter 
-                          targetValue={stat.value} 
-                          suffix={stat.suffix || ""} 
-                          prefix={stat.prefix || ""}
+                        <AnimatedCounter
+                          targetValue={stat.value}
+                          suffix={stat.suffix}
+                          prefix={stat.prefix}
                           duration={2000}
                         />
                       ) : (
@@ -597,7 +573,7 @@ export default function MergedComponent() {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* ==================== MODAL ==================== */}
       {modalCase && (
         <div
           className={`modal-backdrop ${modalVisible ? "visible" : ""}`}
@@ -633,40 +609,30 @@ export default function MergedComponent() {
 
               <div className="h-px bg-gradient-to-r from-transparent via-[#2587a8]/30 to-transparent mb-6" />
 
-              {/* About the Brand */}
               <div className="mb-6">
                 <h3 className="text-[#eee3ca] text-sm font-semibold mb-2 flex items-center gap-2">
                   <Star size={14} className="text-[#2587a8]" />
                   About the Brand
                 </h3>
-                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">
-                  {modalCase.about}
-                </p>
+                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">{modalCase.about}</p>
               </div>
 
-              {/* The Challenge */}
               <div className="mb-6">
                 <h3 className="text-[#eee3ca] text-sm font-semibold mb-2 flex items-center gap-2">
                   <Zap size={14} className="text-[#2587a8]" />
                   The Challenge
                 </h3>
-                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">
-                  {modalCase.challenge}
-                </p>
+                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">{modalCase.challenge}</p>
               </div>
 
-              {/* Our Strategy */}
               <div className="mb-6">
                 <h3 className="text-[#eee3ca] text-sm font-semibold mb-2 flex items-center gap-2">
                   <TrendingUp size={14} className="text-[#2587a8]" />
                   Our Strategy
                 </h3>
-                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">
-                  {modalCase.strategy}
-                </p>
+                <p className="text-[#eee3ca]/70 text-sm leading-relaxed">{modalCase.strategy}</p>
               </div>
 
-              {/* Metrics Grid */}
               <div className="grid grid-cols-3 gap-3 mb-6">
                 {modalCase.metrics.map((metric, i) => {
                   const MetricIcon = metric.icon;
@@ -680,14 +646,11 @@ export default function MergedComponent() {
                 })}
               </div>
 
-              {/* Results */}
               <div className="result-badge-modal">
                 <p className="text-[11px] font-bold tracking-[0.16em] uppercase text-[#2587a8] mb-2 flex items-center gap-2">
                   <Award size={14} /> Results
                 </p>
-                <p className="text-sm leading-relaxed text-[#eee3ca]/80 font-medium">
-                  {modalCase.results}
-                </p>
+                <p className="text-sm leading-relaxed text-[#eee3ca]/80 font-medium">{modalCase.results}</p>
               </div>
             </div>
           </div>
