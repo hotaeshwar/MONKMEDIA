@@ -9,6 +9,7 @@ const SERVICES = [
     description:
       "We craft pixel-perfect, blazing-fast websites that captivate visitors and convert them into loyal customers. From concept to deployment, every detail is intentional.",
     image: "/media/services/webdev.jpg",
+    video: null,
     comingSoon: false,
   },
   {
@@ -16,8 +17,9 @@ const SERVICES = [
     title: "SEO & Local SEO",
     tags: "ORGANIC · RANKINGS · GROWTH",
     description:
-      "Climb search rankings organically with data-driven SEO strategies tailored to your market. We turn Google into your most powerful sales channel.",
-    image: "/media/services/scoandpaidads.jpg",
+      "Climb search rankings organically with data-driven SEO strategies tailored to your market. We optimize your Google Business Profile, build authoritative backlinks, and publish keyword-rich content that ranks — turning Google into your most powerful, always-on sales channel.",
+    image: "/media/sco.jpeg",
+    video: null,
     comingSoon: false,
   },
   {
@@ -27,6 +29,7 @@ const SERVICES = [
     description:
       "From strategy to daily execution, we build communities around your brand. Scroll-stopping content, consistent posting, and real engagement — handled.",
     image: "/media/services/socialmedia.jpg",
+    video: null,
     comingSoon: false,
   },
   {
@@ -35,7 +38,8 @@ const SERVICES = [
     tags: "STORY · MOTION · IMPACT",
     description:
       "Cinematic storytelling that stops the scroll. We produce brand films, reels, and ads that make your audience feel something and remember your name.",
-    image: "/media/services/videoproduction.jpg",
+    image: null,
+    video: "/media/production/HOTELX.mp4",
     comingSoon: false,
   },
   {
@@ -44,25 +48,38 @@ const SERVICES = [
     tags: "IDENTITY · VOICE · LEGACY",
     description:
       "Your brand is more than a logo — it's a feeling. We build complete brand identities that communicate your values, attract your tribe, and stand the test of time.",
-    image: "/media/services/branding.jpg",
+    image: "/media/sco.jpeg",
+    video: null,
     comingSoon: false,
   },
   {
     id: "06",
+    title: "Paid Ads",
+    tags: "PPC · META · GOOGLE ADS",
+    description:
+      "Stop wasting ad spend and start seeing real ROI. We run laser-targeted Google Ads, Meta, and Instagram campaigns engineered for conversions — not just clicks. From audience research and creative to A/B testing and daily optimization, every rupee works harder for your business.",
+    image: "/media/paidads.png",
+    video: null,
+    comingSoon: false,
+  },
+  {
+    id: "07",
     title: "Software Development",
     tags: "BUILD · SCALE · INNOVATE",
     description:
       "From custom web apps to full-scale software solutions, we engineer products that perform. Clean code, modern architecture, and built to grow with your business.",
     image: "/media/services/softwaredevlopement.jpg",
+    video: null,
     comingSoon: false,
   },
   {
-    id: "07",
+    id: "08",
     title: "AI UGC",
     tags: "AI · CONTENT · AUTHENTIC",
     description:
       "Next-generation AI-powered user-generated content that feels real, converts fast, and scales infinitely. The future of brand storytelling is almost here.",
     image: null,
+    video: null,
     comingSoon: true,
   },
 ];
@@ -91,6 +108,21 @@ function useReveal(threshold = 0.12) {
 
   return [ref, visible];
 }
+
+/* ── Utility function to scroll to Our Work section ── */
+const scrollToOurWork = () => {
+  const ourWorkSection = document.getElementById('our-work');
+  if (ourWorkSection) {
+    const offset = 80;
+    const elementPosition = ourWorkSection.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+};
 
 /* ── ServiceRow ── */
 function ServiceRow({ service, index }) {
@@ -122,7 +154,6 @@ function ServiceRow({ service, index }) {
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-12 sm:py-16 lg:py-20">
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
-
             {/* Left — text */}
             <div className="flex flex-col gap-5 flex-1">
               <p className="text-[10px] tracking-[0.25em] text-[#2587a8] uppercase">
@@ -136,7 +167,6 @@ function ServiceRow({ service, index }) {
                 >
                   {service.title}
                 </h3>
-                {/* COMING SOON BADGE */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#d4af37]/60 bg-[#d4af37]/10 text-[#d4af37] text-[10px] font-bold tracking-[0.18em] uppercase whitespace-nowrap">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse" />
                   We Are Adding Soon
@@ -148,12 +178,30 @@ function ServiceRow({ service, index }) {
               <p className="text-[#eee3ca]/70 text-sm sm:text-base leading-relaxed max-w-xl">
                 {service.description}
               </p>
+
+              {/* View Our Work button for coming soon */}
+              <button
+                onClick={scrollToOurWork}
+                className="
+                  inline-flex items-center gap-2 mt-2
+                  px-6 py-3 rounded-full
+                  border border-[#d4af37] text-[#d4af37]
+                  text-sm font-semibold tracking-wide
+                  hover:bg-[#d4af37] hover:text-black
+                  transition-all duration-300
+                "
+              >
+                View Our Work
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
             </div>
 
             {/* Right — locked placeholder */}
             <div className="w-full lg:w-[42%] shrink-0">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 bg-[#0a0a0a] flex flex-col items-center justify-center gap-5">
-                {/* Dot grid */}
                 <div
                   className="absolute inset-0 opacity-[0.06]"
                   style={{
@@ -161,7 +209,6 @@ function ServiceRow({ service, index }) {
                     backgroundSize: "28px 28px",
                   }}
                 />
-                {/* Lock icon */}
                 <svg
                   viewBox="0 0 24 24" width="42" height="42"
                   fill="none" stroke="#d4af37" strokeWidth="1.5"
@@ -171,18 +218,15 @@ function ServiceRow({ service, index }) {
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                {/* Coming soon text */}
                 <p className="relative z-10 text-[#eee3ca] text-xs font-semibold tracking-[0.22em] uppercase">
                   Coming Soon
                 </p>
-                {/* accent bar */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-[3px]"
                   style={{ background: "linear-gradient(to right, #d4af37, #2587a8, #d4af37)" }}
                 />
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -192,7 +236,6 @@ function ServiceRow({ service, index }) {
   /* ── REGULAR ROW ── */
   return (
     <div ref={rowRef} className="relative w-full border-b border-white/5 overflow-hidden">
-
       {/* Banner */}
       <div
         className={`
@@ -237,15 +280,26 @@ function ServiceRow({ service, index }) {
             max-w-7xl mx-auto
           `}
         >
-          {/* Image */}
+          {/* Image or Video */}
           <div className="w-full lg:w-[54%] shrink-0 group">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                loading="lazy"
-              />
+              {service.video ? (
+                <video
+                  src={service.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+              ) : (
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-br from-black/25 to-transparent" />
               <span
                 className="absolute bottom-4 left-5 text-[#eee3ca]/30 text-xs font-bold tracking-[0.2em]"
@@ -288,26 +342,49 @@ function ServiceRow({ service, index }) {
               {service.description}
             </p>
 
-            <a
-              href={waLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                inline-flex items-center gap-2 mt-1
-                px-6 py-3 rounded-full
-                border border-[#2587a8] text-[#eee3ca]
-                text-sm font-semibold tracking-wide
-                hover:bg-[#2587a8] transition-all duration-300
-                hover:translate-x-1
-              "
-            >
-              Get Started
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
-                stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
+            {/* Buttons container */}
+            <div className="flex flex-wrap gap-4 mt-2">
+              {/* WhatsApp Get Started button */}
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  inline-flex items-center gap-2
+                  px-6 py-3 rounded-full
+                  border border-[#2587a8] text-[#eee3ca]
+                  text-sm font-semibold tracking-wide
+                  hover:bg-[#2587a8] transition-all duration-300
+                  hover:translate-x-1
+                "
+              >
+                Get Started
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+
+              {/* View Our Work button */}
+              <button
+                onClick={scrollToOurWork}
+                className="
+                  inline-flex items-center gap-2
+                  px-6 py-3 rounded-full
+                  border border-[#d4af37] text-[#d4af37]
+                  text-sm font-semibold tracking-wide
+                  hover:bg-[#d4af37] hover:text-black
+                  transition-all duration-300
+                "
+              >
+                View Our Work
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -326,6 +403,24 @@ function ServiceRow({ service, index }) {
 export default function Services() {
   const [headerRef, headerVisible] = useReveal(0.04);
 
+  // Handle hash links on page load
+  useEffect(() => {
+    if (window.location.hash === '#our-work') {
+      setTimeout(() => {
+        const section = document.getElementById('our-work');
+        if (section) {
+          const offset = 80;
+          const elementPosition = section.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 500);
+    }
+  }, []);
+
   return (
     <>
       <style>{`
@@ -334,7 +429,6 @@ export default function Services() {
       `}</style>
 
       <section className="svc-root w-full bg-black overflow-hidden">
-
         {/* ── HEADER ── */}
         <div
           ref={headerRef}
@@ -352,6 +446,21 @@ export default function Services() {
               <span className="text-[11px] tracking-[0.22em] text-[#eee3ca]/40 uppercase">Services</span>
               <span className="block w-9 h-px bg-[#2587a8]" />
             </div>
+
+            {/* View Our Work Button in Header */}
+            <button
+              onClick={scrollToOurWork}
+              className="mb-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full 
+                         border border-[#d4af37] text-[#d4af37] text-sm font-semibold 
+                         hover:bg-[#d4af37] hover:text-black transition-all duration-300"
+            >
+              View Our Work
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" 
+                   stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+
             <h2
               className="text-[#eee3ca] font-extrabold leading-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl"
               style={{ fontFamily: "'Syne', sans-serif" }}
@@ -378,7 +487,6 @@ export default function Services() {
         {SERVICES.map((service, i) => (
           <ServiceRow key={service.id} service={service} index={i} />
         ))}
-
       </section>
     </>
   );

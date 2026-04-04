@@ -10,6 +10,8 @@ import WhyChooseUs from "./components/Whychooseus";
 import Testimonials from "./components/Testimonials";
 import Ourwork from "./components/Ourwork";
 import Contactus from "./components/Contactus";
+import Clientcarousel from "./components/Clientcarousel";
+import Career from "./components/Career"; // ✅ added import for Career component
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,14 @@ function App() {
             background-image: url('/media/screen/skyline.jpg');
             background-size: cover;
             background-position: center;
+          }
+
+          .splash-root::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
           }
 
           .splash-content {
@@ -144,12 +154,24 @@ function App() {
       <Background />
       <Navbar />
       <Routes>
-        <Route path="/" element={<><Hero /><AboutUs /><Services /><WhyChooseUs /><Testimonials /><Ourwork /><Contactus /></>} />
+        <Route path="/" element={
+          <>
+            <Hero />
+            <AboutUs />
+            <Clientcarousel />
+            <Services />
+            <Ourwork />
+            <WhyChooseUs />
+            <Testimonials />
+            <Contactus />
+          </>
+        } />
         <Route path="/about"     element={<AboutUs />} />
         <Route path="/services"  element={<Services />} />
         <Route path="/why-us"    element={<WhyChooseUs />} />
         <Route path="/our-work"  element={<Ourwork />} />
         <Route path="/contact"   element={<Contactus />} />
+        <Route path="/career"    element={<Career />} /> {/* ✅ Career route - only shows when clicking Career link */}
       </Routes>
       <Footer />
     </BrowserRouter>
