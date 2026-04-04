@@ -442,7 +442,7 @@ export default function Navbar() {
             {/* ── CENTER LOGO — bigger but navbar height unchanged ── */}
             <NavLink to="/" className="flex items-center select-none shrink-0 z-10">
               <img
-                src="/media/L1-01.png"
+                src="/media/logo.png"
                 alt="MonkMedia Logo"
                 style={{
                   height: "210px",

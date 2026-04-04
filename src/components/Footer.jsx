@@ -232,7 +232,7 @@ export default function Footer() {
             <div className="lg:col-span-1">
               <div className="mb-4">
                 <img
-                  src="/media/L1-01.png"
+                  src="/media/logo.png"
                   alt="Monk Media"
                   className="w-auto h-24 sm:h-28 md:h-32 lg:h-36 object-contain block"
                 />
