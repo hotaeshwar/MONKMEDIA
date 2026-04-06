@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 /* ─── PROJECTS DATA ─── */
 const PROJECTS = [
-  { id: 1,  title: "Chocolate Groove Event",  category: "Event Coverage",    videoSrc: "/media/work/Chocolate.mp4",                  tag: "E"  },
+  { id: 1,  title: "Chocolate Groove Event",  category: "Event Coverage",    videoSrc: "/media/work/Chocolate.mp4",                  tag: "R"  },
   { id: 13, title: "Reel V3",                 category: "Creative",          videoSrc: "/media/work/V3.mp4",                         tag: "L"  },
   { id: 14, title: "Reel V5",                 category: "Creative",          videoSrc: "/media/work/V5.mp4",                         tag: "R"  },
   { id: 15, title: "Reel V6",                 category: "Creative",          videoSrc: "/media/work/V6.mp4",                         tag: "R"  },
@@ -46,7 +46,7 @@ const PROJECTS = [
   { id: 35, title: "Dipit Bhai",              category: "Personal Branding", videoSrc: "/media/work/DIPITBHAI.mp4",                  tag: "P"  },
   { id: 4,  title: "Everlend",                category: "Construction",      videoSrc: "/media/work/EVERLAND.mp4",                   tag: "L"  },
   { id: 5,  title: "Everlend Reel",           category: "Construction",      videoSrc: "/media/work/Everlend1.mp4",                  tag: "L"  },
-  { id: 11, title: "Baby Reel",               category: "Lifestyle",         videoSrc: "/media/work/BABY.mp4",                       tag: "E"  },
+  { id: 11, title: "Baby Reel",               category: "Lifestyle",         videoSrc: "/media/work/BABY.mp4",                       tag: "R"  },
   { id: 12, title: "Covertee",                category: "Fashion & Apparel", videoSrc: "/media/work/covertee.mp4",                   tag: "L"  },
   { id: 32, title: "Corvette Reel",           category: "Automotive",        videoSrc: "/media/work/CorvetteReel.mp4",               tag: "L"  },
   { id: 33, title: "Corvette Reel Vol. 2",    category: "Automotive",        videoSrc: "/media/work/CorvetteReel2.mp4",              tag: "L"  },
