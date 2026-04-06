@@ -18,7 +18,7 @@ const SERVICES = [
     tags: "ORGANIC · RANKINGS · GROWTH",
     description:
       "Climb search rankings organically with data-driven SEO strategies tailored to your market. We optimize your Google Business Profile, build authoritative backlinks, and publish keyword-rich content that ranks — turning Google into your most powerful, always-on sales channel.",
-    image: "/media/sco.jpg",
+    image: "/media/sconew.jpg",
     video: null,
     comingSoon: false,
   },
@@ -48,7 +48,7 @@ const SERVICES = [
     tags: "IDENTITY · VOICE · LEGACY",
     description:
       "Your brand is more than a logo — it's a feeling. We build complete brand identities that communicate your values, attract your tribe, and stand the test of time.",
-    image: "/media/sco.jpg",
+    image: "/media/sconew.jpg",
     video: null,
     comingSoon: false,
   },
@@ -58,7 +58,7 @@ const SERVICES = [
     tags: "PPC · META · GOOGLE ADS",
     description:
       "Stop wasting ad spend and start seeing real ROI. We run laser-targeted Google Ads, Meta, and Instagram campaigns engineered for conversions — not just clicks. From audience research and creative to A/B testing and daily optimization, every rupee works harder for your business.",
-    image: "/media/paidads.png",
+    image: "/media/paidadsnew.png",
     video: null,
     comingSoon: false,
   },
