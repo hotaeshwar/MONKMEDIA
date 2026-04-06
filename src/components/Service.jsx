@@ -18,7 +18,7 @@ const SERVICES = [
     tags: "ORGANIC · RANKINGS · GROWTH",
     description:
       "Climb search rankings organically with data-driven SEO strategies tailored to your market. We optimize your Google Business Profile, build authoritative backlinks, and publish keyword-rich content that ranks — turning Google into your most powerful, always-on sales channel.",
-    image: "/media/sco.jpeg",
+    image: "/media/sco.jpg",
     video: null,
     comingSoon: false,
   },
@@ -48,7 +48,7 @@ const SERVICES = [
     tags: "IDENTITY · VOICE · LEGACY",
     description:
       "Your brand is more than a logo — it's a feeling. We build complete brand identities that communicate your values, attract your tribe, and stand the test of time.",
-    image: "/media/sco.jpeg",
+    image: "/media/sco.jpg",
     video: null,
     comingSoon: false,
   },
@@ -109,12 +109,23 @@ function useReveal(threshold = 0.12) {
   return [ref, visible];
 }
 
-/* ── Utility function to scroll to Our Work section ── */
+/* ── Utility: scroll to Our Work section ── */
 const scrollToOurWork = () => {
   const ourWorkSection = document.getElementById("our-work");
   if (ourWorkSection) {
     const offset = 80;
     const elementPosition = ourWorkSection.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+  }
+};
+
+/* ── Utility: scroll to Live Sites section ── */
+const scrollToLiveSites = () => {
+  const liveSites = document.getElementById("live-sites");
+  if (liveSites) {
+    const offset = 80;
+    const elementPosition = liveSites.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - offset;
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
   }
@@ -185,7 +196,7 @@ function ServiceRow({ service, index }) {
               </button>
             </div>
 
-            {/* Right — locked placeholder — SMALLER */}
+            {/* Right — locked placeholder */}
             <div className="w-full lg:w-[36%] shrink-0">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 bg-[#0a0a0a] flex flex-col items-center justify-center gap-5">
                 <div
@@ -255,7 +266,7 @@ function ServiceRow({ service, index }) {
             isEven ? "lg:flex-row" : "lg:flex-row-reverse"
           } items-center lg:gap-14 xl:gap-20 px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-16 max-w-7xl mx-auto`}
         >
-          {/* Image or Video — SMALLER: 42% → 36%, no hover zoom */}
+          {/* Image or Video */}
           <div className="w-full lg:w-[36%] shrink-0">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
               {service.video ? (
@@ -314,6 +325,7 @@ function ServiceRow({ service, index }) {
 
             {/* Buttons container */}
             <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
+              {/* FIXED: Added missing <a tag */}
               <a
                 href={waLink}
                 target="_blank"
@@ -328,16 +340,30 @@ function ServiceRow({ service, index }) {
                 </svg>
               </a>
 
-              <button
-                onClick={scrollToOurWork}
-                className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300"
-              >
-                View Our Work
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
-                  stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
+              {/* ── Website Designing service gets its own "View Websites" button ── */}
+              {service.id === "01" ? (
+                <button
+                  onClick={scrollToLiveSites}
+                  className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300"
+                >
+                  View Websites
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  onClick={scrollToOurWork}
+                  className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300"
+                >
+                  View Our Work
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -358,9 +384,24 @@ export default function Services() {
   const [headerRef, headerVisible] = useReveal(0.04);
 
   useEffect(() => {
+    // Guard against SSR (window not defined)
+    if (typeof window === "undefined") return;
+
     if (window.location.hash === "#our-work") {
       setTimeout(() => {
         const section = document.getElementById("our-work");
+        if (section) {
+          const offset = 80;
+          const elementPosition = section.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+      }, 500);
+    }
+
+    if (window.location.hash === "#live-sites") {
+      setTimeout(() => {
+        const section = document.getElementById("live-sites");
         if (section) {
           const offset = 80;
           const elementPosition = section.getBoundingClientRect().top;
@@ -379,7 +420,7 @@ export default function Services() {
       `}</style>
 
       <section className="svc-root w-full bg-black overflow-hidden">
-        {/* ── HEADER — View Our Work button REMOVED ── */}
+        {/* ── HEADER ── */}
         <div
           ref={headerRef}
           className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-36 sm:pt-40 md:pt-44 lg:pt-48 pb-10 sm:pb-14 lg:pb-16 flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-16 transition-all duration-700 ease-out ${
@@ -387,14 +428,12 @@ export default function Services() {
           }`}
         >
           <div className="flex-1">
-            {/* SERVICES label */}
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
               <span className="block w-9 h-px bg-[#2587a8]" />
               <span className="text-[11px] tracking-[0.22em] text-[#eee3ca]/40 uppercase">Services</span>
               <span className="block w-9 h-px bg-[#2587a8]" />
             </div>
 
-            {/* Main heading — View Our Work button removed */}
             <h2
               className="text-[#eee3ca] font-extrabold leading-none text-[clamp(2.8rem,10vw,7rem)]"
               style={{ fontFamily: "'Syne', sans-serif" }}

@@ -41,7 +41,7 @@ function DropletNavLink({ to, label, end, scrolled }) {
       end={end}
       onMouseEnter={spawnDrop}
       className={({ isActive }) =>
-        `relative px-3 py-2 rounded-full text-[0.82rem] transition-colors duration-200 overflow-hidden select-none whitespace-nowrap
+        `relative px-5 py-2.5 rounded-full text-[0.95rem] transition-all duration-300 overflow-hidden select-none whitespace-nowrap group
          ${isActive
            ? "text-[#2587a8]"
            : `${scrolled ? "text-[#0d1b2a]" : "text-[#eee3ca]"} hover:text-[#2587a8]`}`
@@ -51,12 +51,19 @@ function DropletNavLink({ to, label, end, scrolled }) {
       {({ isActive }) => (
         <>
           {label}
-          {/* underline */}
+
+          {/* shimmer underline */}
           <span
-            className={`absolute bottom-1 left-3 right-3 h-[2px] rounded-full bg-[#2587a8]
-              transition-transform duration-300 origin-left
-              ${isActive ? "scale-x-100" : "scale-x-0"}`}
+            className={`absolute bottom-1 left-4 right-4 h-[2.5px] rounded-full
+              transition-all duration-300 origin-left
+              ${isActive ? "scale-x-100 nav-link-shimmer" : "scale-x-0 bg-[#2587a8]"}`}
           />
+
+          {/* hover glow bg */}
+          <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ background: "radial-gradient(ellipse at center, rgba(37,135,168,0.13) 0%, transparent 75%)" }}
+          />
+
           {/* droplet ripples */}
           {drops.map((drop) => (
             <span
@@ -408,17 +415,38 @@ export default function Navbar() {
         .nav-syne { font-family: 'Syne', sans-serif; }
         .nav-dm   { font-family: 'DM Sans', sans-serif; }
 
+        /* Shimmer underline for active/hover */
+        @keyframes shimmerSlide {
+          0%   { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .nav-link-shimmer {
+          background: linear-gradient(90deg, #2587a8 0%, #7dd4ed 35%, #d4af37 55%, #2587a8 100%);
+          background-size: 200% auto;
+          animation: shimmerSlide 1.4s linear infinite;
+        }
+
+        /* Letter float on hover */
+        @keyframes letterFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-3px); }
+        }
+        .nav-link-float:hover > span.link-text {
+          display: inline-block;
+          animation: letterFloat 0.5s ease-in-out;
+        }
+
         /* Water droplet ripple — visible teal burst */
         @keyframes dropletRipple {
           0%   { width: 0px; height: 0px; opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
           50%  { opacity: 0.25; }
-          100% { width: 90px; height: 90px; opacity: 0; transform: translate(-50%, -50%) scale(1); }
+          100% { width: 100px; height: 100px; opacity: 0; transform: translate(-50%, -50%) scale(1); }
         }
         .droplet-ripple {
           position: absolute;
           border-radius: 50%;
           pointer-events: none;
-          background: radial-gradient(circle, rgba(37,135,168,0.55) 0%, rgba(37,135,168,0.15) 50%, transparent 70%);
+          background: radial-gradient(circle, rgba(37,135,168,0.6) 0%, rgba(37,135,168,0.15) 50%, transparent 70%);
           animation: dropletRipple 0.75s ease-out forwards;
           z-index: 0;
         }
@@ -453,7 +481,7 @@ export default function Navbar() {
             </NavLink>
 
             {/* ── LEFT LINKS ── */}
-            <ul className="hidden md:flex items-center gap-0 nav-dm absolute right-1/2 pr-[88px]">
+            <ul className="hidden md:flex items-center gap-2 nav-dm absolute right-1/2 pr-[100px]">
               {leftLinks.map(({ label, to }) => (
                 <li key={to}>
                   <DropletNavLink to={to} label={label} end={to === "/"} scrolled={scrolled} />
@@ -462,7 +490,7 @@ export default function Navbar() {
             </ul>
 
             {/* ── RIGHT LINKS + CTA ── */}
-            <div className="hidden md:flex items-center gap-0 nav-dm absolute left-1/2 pl-[88px]">
+            <div className="hidden md:flex items-center gap-2 nav-dm absolute left-1/2 pl-[100px]">
               {rightLinks.map(({ label, to }) => (
                 <DropletNavLink key={to} to={to} label={label} scrolled={scrolled} />
               ))}
@@ -471,13 +499,13 @@ export default function Navbar() {
               <button
                 onClick={() => setModal(true)}
                 className={`
-                  relative ml-2 px-5 py-2 rounded-full text-[0.82rem] font-extrabold
+                  relative ml-3 px-6 py-2.5 rounded-full text-[0.95rem] font-extrabold
                   transition-all duration-300 overflow-hidden select-none whitespace-nowrap
                   ${scrolled
-                    ? "bg-[#2587a8] text-[#eee3ca] hover:bg-[#1e6f8f] hover:scale-[1.02] active:scale-[0.98]"
-                    : "bg-[#2587a8] text-[#eee3ca] hover:bg-[#1e6f8f] hover:scale-[1.02] active:scale-[0.98]"
+                    ? "bg-[#2587a8] text-[#eee3ca] hover:bg-[#1e6f8f] hover:scale-[1.04] active:scale-[0.98]"
+                    : "bg-[#2587a8] text-[#eee3ca] hover:bg-[#1e6f8f] hover:scale-[1.04] active:scale-[0.98]"
                   }
-                  shadow-[0_2px_8px_rgba(37,135,168,0.3)]
+                  shadow-[0_2px_16px_rgba(37,135,168,0.4)]
                 `}
                 style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 800 }}
               >

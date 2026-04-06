@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const techStack = [
   { id: 1, name: "Google",             src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { id: 2, name: "Meta",               src: "/media/technology/meta.jpg" },
+  { id: 2, name: "Meta",               src: "/media/technology/meta.png" },
   { id: 3, name: "TikTok",             src: "https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" },
   { id: 4, name: "Adobe Premiere Pro", src: "https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" },
   { id: 5, name: "Higgsfield AI",      src: "/media/technology/hiss.png" },
@@ -16,8 +16,8 @@ const clients = [
   { id: 2, name: "Everlend CA",  src: "/media/technology/everland.png" },
   { id: 3, name: "Logo Preview", src: "/media/technology/Logo Preview.png" },
   { id: 4, name: "LOGO",         src: "/media/technology/LOGO.jpg" },
-  { id: 5, name: "Matrix",       src: "/media/technology/matrix.jpg" },
-  { id: 6, name: "Nest4Pet",     src: "/media/technology/nest4pet-logo.png" },
+  { id: 5, name: "Matrix",       src: "/media/technology/matrix.png" },
+  { id: 6, name: "Nest4Pet",     src: "/media/technology/nest.png" },
   { id: 7, name: "TSB",          src: "/media/technology/tsb.png" },
 ];
 
@@ -221,18 +221,20 @@ export default function ClientCarousel() {
           background: #ffffff;
           border: 1px solid rgba(255,255,255,0.12);
           border-radius: 16px;
-          padding: 20px 32px;
+          /* Reduced padding so logo fills more of the card */
+          padding: 12px 16px;
           width: 220px;
           height: 130px;
+          overflow: hidden;
           transition: border-color 0.35s ease,
                       box-shadow 0.35s ease,
                       transform 0.35s ease;
         }
         @media (max-width: 768px) {
-          .logo-card { width: 180px; height: 110px; padding: 16px 24px; }
+          .logo-card { width: 180px; height: 110px; padding: 10px 14px; }
         }
         @media (max-width: 480px) {
-          .logo-card { width: 145px; height: 88px; padding: 12px 16px; border-radius: 12px; }
+          .logo-card { width: 145px; height: 88px; padding: 8px 10px; border-radius: 12px; }
         }
 
         .logo-tile:hover .logo-card {
@@ -241,19 +243,15 @@ export default function ClientCarousel() {
           transform: translateY(-3px);
         }
 
+        /* KEY FIX: logo fills the card edge-to-edge with object-fit: contain */
         .logo-img {
-          height: 80px;
-          width: auto;
-          max-width: 180px;
+          width: 100%;
+          height: 100%;
           object-fit: contain;
+          object-position: center;
           transition: transform 0.35s ease;
           filter: none;
-        }
-        @media (max-width: 768px) {
-          .logo-img { height: 64px; max-width: 148px; }
-        }
-        @media (max-width: 480px) {
-          .logo-img { height: 50px; max-width: 115px; }
+          display: block;
         }
 
         .logo-tile:hover .logo-img {
@@ -302,7 +300,7 @@ export default function ClientCarousel() {
         <div className={`cc-fade-up d3 ${visible ? "in" : ""}`}>
           <div className="cc-label-row">
             <div className="cc-dot" />
-            <span className="cc-label">Trusted Clients of Xfactor</span>
+            <span className="cc-label">Trusted Clients of MonkMedia</span>
             <div className="cc-dot" />
           </div>
         </div>
