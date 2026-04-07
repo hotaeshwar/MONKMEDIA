@@ -83,7 +83,6 @@ function ContactModal({ open, onClose }) {
   const [form, setForm] = useState({
     name: "", email: "", phone: "", service: "", message: "",
   });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [serviceOpen, setServiceOpen] = useState(false);
 
   useEffect(() => {
@@ -94,39 +93,12 @@ function ContactModal({ open, onClose }) {
   useEffect(() => {
     if (!open) {
       setForm({ name: "", email: "", phone: "", service: "", message: "" });
-      setStatus("idle");
       setServiceOpen(false);
     }
   }, [open]);
 
   const handleChange = (e) => {
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.service) return;
-    setStatus("sending");
-
-    try {
-      const res = await fetch("https://formsubmit.co/ajax/info@monkmedia.ca", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: `New Inquiry from ${form.name} — MonkMedia`,
-          _captcha: "false",
-          Name: form.name,
-          Email: form.email,
-          Phone: form.phone || "Not provided",
-          "Service Interested In": form.service,
-          Message: form.message || "No message",
-        }),
-      });
-      if (res.ok) setStatus("success");
-      else setStatus("error");
-    } catch {
-      setStatus("error");
-    }
   };
 
   if (!open) return null;
@@ -176,87 +148,31 @@ function ContactModal({ open, onClose }) {
 
           {/* Body */}
           <div className="px-6 pb-8 sm:px-8 sm:pb-10">
-            {status === "success" ? (
-              <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
-                <div className="w-16 h-16 rounded-full bg-[#2587a8]/20 flex items-center justify-center">
-                  <CheckCircle className="text-[#2587a8]" size={32} />
-                </div>
-                <h3 className="text-[#eee3ca] font-bold text-xl" style={{ fontFamily: "'Syne', sans-serif" }}>
-                  Message Sent!
-                </h3>
-                <p className="text-[#eee3ca]/60 text-sm max-w-xs">
-                  Thanks for reaching out. Our team will contact you within 24 hours at <strong className="text-[#eee3ca]/80">{form.email}</strong>.
-                </p>
-                <button
-                  onClick={onClose}
-                  className="mt-2 px-6 py-2.5 rounded-full bg-[#2587a8] text-[#eee3ca] text-sm font-bold hover:bg-[#1e6f8f] transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-2">
-                {/* Name + Phone row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
-                      Full Name <span className="text-[#2587a8]">*</span>
-                    </label>
-                    <div className="relative">
-                      <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={form.name}
-                        onChange={handleChange}
-                        placeholder="John Doe"
-                        className="
-                          w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
-                          bg-white/5 border border-white/10
-                          focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
-                          placeholder:text-[#eee3ca]/20 transition-all
-                        "
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
-                      Phone
-                    </label>
-                    <div className="relative">
-                      <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder="+1 (555) 000-0000"
-                        className="
-                          w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
-                          bg-white/5 border border-white/10
-                          focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
-                          placeholder:text-[#eee3ca]/20 transition-all
-                        "
-                      />
-                    </div>
-                  </div>
-                </div>
+            <form
+              action="https://formsubmit.co/info@monkmedia.ca"
+              method="POST"
+              className="flex flex-col gap-4 mt-2"
+            >
+              {/* FormSubmit hidden config fields */}
+              <input type="hidden" name="_subject" value="New Inquiry — MonkMedia" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
 
-                {/* Email */}
+              {/* Name + Phone row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
-                    Email Address <span className="text-[#2587a8]">*</span>
+                    Full Name <span className="text-[#2587a8]">*</span>
                   </label>
                   <div className="relative">
-                    <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
+                    <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
                     <input
-                      type="email"
-                      name="email"
+                      type="text"
+                      name="name"
                       required
-                      value={form.email}
+                      value={form.name}
                       onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder="John Doe"
                       className="
                         w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
                         bg-white/5 border border-white/10
@@ -266,117 +182,151 @@ function ContactModal({ open, onClose }) {
                     />
                   </div>
                 </div>
-
-                {/* Service dropdown */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
-                    Service Interested In <span className="text-[#2587a8]">*</span>
+                    Phone
                   </label>
                   <div className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setServiceOpen((o) => !o)}
-                      className="
-                        w-full flex items-center justify-between
-                        px-4 py-2.5 rounded-xl text-sm
-                        bg-white/5 border border-white/10
-                        focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
-                        transition-all text-left
-                      "
-                    >
-                      <span className={form.service ? "text-[#eee3ca]" : "text-[#eee3ca]/20"}>
-                        {form.service || "Select a service…"}
-                      </span>
-                      <ChevronDown
-                        size={14}
-                        className={`text-[#eee3ca]/40 transition-transform duration-200 ${serviceOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-                    {serviceOpen && (
-                      <div className="
-                        absolute top-full left-0 right-0 mt-1 z-10
-                        bg-[#0d1b2a] border border-white/10 rounded-xl shadow-2xl
-                        overflow-hidden
-                      ">
-                        {SERVICES_LIST.map((svc) => (
-                          <button
-                            key={svc}
-                            type="button"
-                            onClick={() => {
-                              setForm((p) => ({ ...p, service: svc }));
-                              setServiceOpen(false);
-                            }}
-                            className="
-                              w-full text-left px-4 py-2.5 text-sm text-[#eee3ca]/80
-                              hover:bg-[#2587a8]/20 hover:text-[#eee3ca]
-                              transition-colors border-b border-white/5 last:border-0
-                            "
-                          >
-                            {svc}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
-                    Message
-                  </label>
-                  <div className="relative">
-                    <MessageSquare size={14} className="absolute left-3 top-3 text-[#eee3ca]/30" />
-                    <textarea
-                      name="message"
-                      rows={3}
-                      value={form.message}
+                    <Phone size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
                       onChange={handleChange}
-                      placeholder="Tell us about your project…"
+                      placeholder="+1 (555) 000-0000"
                       className="
                         w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
                         bg-white/5 border border-white/10
                         focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
-                        placeholder:text-[#eee3ca]/20 transition-all resize-none
+                        placeholder:text-[#eee3ca]/20 transition-all
                       "
                     />
                   </div>
                 </div>
+              </div>
 
-                {status === "error" && (
-                  <p className="text-red-400 text-xs text-center">
-                    Something went wrong. Please try again or email us directly at{" "}
-                    <a href="mailto:info@monkmedia.ca" className="underline">info@monkmedia.ca</a>.
-                  </p>
-                )}
+              {/* Email */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
+                  Email Address <span className="text-[#2587a8]">*</span>
+                </label>
+                <div className="relative">
+                  <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#eee3ca]/30" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className="
+                      w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
+                      bg-white/5 border border-white/10
+                      focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
+                      placeholder:text-[#eee3ca]/20 transition-all
+                    "
+                  />
+                </div>
+              </div>
 
-                {/* Submit */}
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="
-                    mt-1 w-full flex items-center justify-center gap-2
-                    bg-[#2587a8] hover:bg-[#1e6f8f]
-                    text-[#eee3ca] font-bold text-sm
-                    py-3 px-6 rounded-full
-                    transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
-                    disabled:opacity-60 disabled:cursor-not-allowed
-                    shadow-[0_4px_24px_rgba(37,135,168,0.3)]
-                  "
-                  style={{ fontFamily: "'Syne', sans-serif" }}
-                >
-                  {status === "sending" ? (
-                    <><Loader2 size={16} className="animate-spin" /> Sending…</>
-                  ) : (
-                    <>Send Message <ArrowUpRight size={15} /></>
+              {/* Service dropdown */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
+                  Service Interested In <span className="text-[#2587a8]">*</span>
+                </label>
+                {/* Hidden input carries selected service value in the POST */}
+                <input type="hidden" name="service" value={form.service} />
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setServiceOpen((o) => !o)}
+                    className="
+                      w-full flex items-center justify-between
+                      px-4 py-2.5 rounded-xl text-sm
+                      bg-white/5 border border-white/10
+                      focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
+                      transition-all text-left
+                    "
+                  >
+                    <span className={form.service ? "text-[#eee3ca]" : "text-[#eee3ca]/20"}>
+                      {form.service || "Select a service…"}
+                    </span>
+                    <ChevronDown
+                      size={14}
+                      className={`text-[#eee3ca]/40 transition-transform duration-200 ${serviceOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {serviceOpen && (
+                    <div className="
+                      absolute top-full left-0 right-0 mt-1 z-10
+                      bg-[#0d1b2a] border border-white/10 rounded-xl shadow-2xl
+                      overflow-hidden
+                    ">
+                      {SERVICES_LIST.map((svc) => (
+                        <button
+                          key={svc}
+                          type="button"
+                          onClick={() => {
+                            setForm((p) => ({ ...p, service: svc }));
+                            setServiceOpen(false);
+                          }}
+                          className="
+                            w-full text-left px-4 py-2.5 text-sm text-[#eee3ca]/80
+                            hover:bg-[#2587a8]/20 hover:text-[#eee3ca]
+                            transition-colors border-b border-white/5 last:border-0
+                          "
+                        >
+                          {svc}
+                        </button>
+                      ))}
+                    </div>
                   )}
-                </button>
+                </div>
+              </div>
 
-                <p className="text-[#eee3ca]/25 text-xs text-center">
-                  We reply within 24 hours · info@monkmedia.ca
-                </p>
-              </form>
-            )}
+              {/* Message */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[#eee3ca]/60 text-xs font-semibold uppercase tracking-wider">
+                  Message
+                </label>
+                <div className="relative">
+                  <MessageSquare size={14} className="absolute left-3 top-3 text-[#eee3ca]/30" />
+                  <textarea
+                    name="message"
+                    rows={3}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your project…"
+                    className="
+                      w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-[#eee3ca]
+                      bg-white/5 border border-white/10
+                      focus:border-[#2587a8] focus:outline-none focus:ring-1 focus:ring-[#2587a8]/30
+                      placeholder:text-[#eee3ca]/20 transition-all resize-none
+                    "
+                  />
+                </div>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="
+                  mt-1 w-full flex items-center justify-center gap-2
+                  bg-[#2587a8] hover:bg-[#1e6f8f]
+                  text-[#eee3ca] font-bold text-sm
+                  py-3 px-6 rounded-full
+                  transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
+                  shadow-[0_4px_24px_rgba(37,135,168,0.3)]
+                "
+                style={{ fontFamily: "'Syne', sans-serif" }}
+              >
+                Send Message <ArrowUpRight size={15} />
+              </button>
+
+              <p className="text-[#eee3ca]/25 text-xs text-center">
+                We reply within 24 hours · info@monkmedia.ca
+              </p>
+            </form>
           </div>
         </div>
       </div>

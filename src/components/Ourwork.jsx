@@ -2,12 +2,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 /* ─── PROJECTS DATA ─── */
 const PROJECTS = [
-  { id: 1,  title: "Chocolate Groove Event",  category: "Event Coverage",    videoSrc: "/media/work/Chocolate.mp4",                  tag: "R"  },
+  { id: 1,  title: "Chocolate Groove Event",  category: "Event Coverage",    videoSrc: "/media/work/Chocolate.mp4",                  tag: "E"  },
   { id: 13, title: "Reel V3",                 category: "Creative",          videoSrc: "/media/work/V3.mp4",                         tag: "L"  },
   { id: 14, title: "Reel V5",                 category: "Creative",          videoSrc: "/media/work/V5.mp4",                         tag: "R"  },
   { id: 15, title: "Reel V6",                 category: "Creative",          videoSrc: "/media/work/V6.mp4",                         tag: "R"  },
   { id: 16, title: "Reel V7",                 category: "Creative",          videoSrc: "/media/work/V7.mp4",                         tag: "L"  },
-  { id: 17, title: "Reel V9",                 category: "Creative",          videoSrc: "/media/work/V9.mp4",                         tag: "C"  },
+  { id: 17, title: "Reel V9",                 category: "Creative",          videoSrc: "/media/work/V9.mp4",                         tag: "R"  },
   { id: 45, title: "Reel 1",                  category: "Creative",          videoSrc: "/media/work/REEL1.mp4",                      tag: "C"  },
   { id: 46, title: "Reel 11",                 category: "Creative",          videoSrc: "/media/work/Reel11.mp4",                     tag: "L"  },
   { id: 47, title: "Reels",                   category: "Creative",          videoSrc: "/media/work/REELS.mp4",                      tag: "C"  },
@@ -17,13 +17,13 @@ const PROJECTS = [
   { id: 51, title: "V5",                      category: "Creative",          videoSrc: "/media/work/v5 (2).mp4",                     tag: "C"  },
   { id: 52, title: "V7",                      category: "Creative",          videoSrc: "/media/work/V7 (2).mp4",                     tag: "A"  },
   { id: 53, title: "Video 3",                 category: "Creative",          videoSrc: "/media/work/video3.mp4",                     tag: "A"  },
-  { id: 40, title: "MJ",                      category: "Creative",          videoSrc: "/media/work/MJ.mp4",                         tag: "R"  },
+  { id: 40, title: "MJ",                      category: "Creative",          videoSrc: "/media/work/MJ.mp4",                         tag: "E"  },
   { id: 19, title: "AD",                      category: "Advertisement",     videoSrc: "/media/work/AD.mp4",                         tag: "A"  },
   { id: 20, title: "AD Vol. 2",               category: "Advertisement",     videoSrc: "/media/work/AD1.mp4",                        tag: "P"  },
   { id: 21, title: "AD Vol. 3",               category: "Advertisement",     videoSrc: "/media/work/AD2.mp4",                        tag: "L"  },
   { id: 22, title: "AD Vol. 4",               category: "Advertisement",     videoSrc: "/media/work/AD3.mp4",                        tag: "P"  },
-  { id: 23, title: "AD Vol. 5",               category: "Advertisement",     videoSrc: "/media/work/AD4.mp4",                        tag: "A"  },
-  { id: 24, title: "AD Vol. 6",               category: "Advertisement",     videoSrc: "/media/work/AD5.mp4",                        tag: "P"  },
+  { id: 23, title: "AD Vol. 5",               category: "Advertisement",     videoSrc: "/media/work/AD4.mp4",                        tag: "P"  },
+  { id: 24, title: "AD Vol. 6",               category: "Advertisement",     videoSrc: "/media/work/AD5.mp4",                        tag: "R"  },
   { id: 25, title: "AD Vol. 7",               category: "Advertisement",     videoSrc: "/media/work/AD6.mp4",                        tag: "C"  },
   { id: 27, title: "AD Vol. 9",               category: "Advertisement",     videoSrc: "/media/work/AD8.mp4",                        tag: "L"  },
   { id: 28, title: "AD Vol. 10",              category: "Advertisement",     videoSrc: "/media/work/AD9.mp4",                        tag: "P"  },
@@ -31,12 +31,12 @@ const PROJECTS = [
   { id: 30, title: "AD Vol. 24",              category: "Advertisement",     videoSrc: "/media/work/AD24.mp4",                       tag: "A"  },
   { id: 37, title: "Feroz Ads V1",            category: "Advertisement",     videoSrc: "/media/work/FEROZADSV1.mp4",                 tag: "C"  },
   { id: 42, title: "New AD",                  category: "Advertisement",     videoSrc: "/media/work/NewAD.mp4",                      tag: "C"  },
-  { id: 43, title: "New AD Vol. 2",           category: "Advertisement",     videoSrc: "/media/work/NEWAD1.mp4",                     tag: "A"  },
-  { id: 44, title: "Paint Ad",                category: "Advertisement",     videoSrc: "/media/work/PaintAd.mp4",                    tag: "P"  },
+  { id: 43, title: "New AD Vol. 2",           category: "Advertisement",     videoSrc: "/media/work/NEWAD1.mp4",                     tag: "P"  },
+  { id: 44, title: "Paint Ad",                category: "Advertisement",     videoSrc: "/media/work/PaintAd.mp4",                    tag: "A"  },
   { id: 54, title: "X Square Ad",             category: "Advertisement",     videoSrc: "/media/work/XSQUAREAD.mp4",                  tag: "A"  },
   { id: 2,  title: "Epicater",                category: "Food & Beverage",   videoSrc: "/media/work/Epicater.mp4",                   tag: "R"  },
   { id: 3,  title: "Epicater Vol. 2",         category: "Food & Beverage",   videoSrc: "/media/work/Epicater2.mp4",                  tag: "R"  },
-  { id: 6,  title: "Goli Soda",               category: "Food & Beverage",   videoSrc: "/media/work/GOLI SODA.mp4",                  tag: "R"  },
+  { id: 6,  title: "Goli Soda",              category: "Food & Beverage",   videoSrc: "/media/work/GOLI SODA.mp4",                  tag: "R"  },
   { id: 7,  title: "Goli Soda Vol. 2",        category: "Food & Beverage",   videoSrc: "/media/work/GOLISODA2.mp4",                  tag: "R"  },
   { id: 8,  title: "Goli Soda Vol. 3",        category: "Food & Beverage",   videoSrc: "/media/work/GOLISODA3.mp4",                  tag: "R"  },
   { id: 9,  title: "Goli Soda Vol. 4",        category: "Food & Beverage",   videoSrc: "/media/work/GOLISODA4.mp4",                  tag: "R"  },
@@ -46,13 +46,13 @@ const PROJECTS = [
   { id: 35, title: "Dipit Bhai",              category: "Personal Branding", videoSrc: "/media/work/DIPITBHAI.mp4",                  tag: "P"  },
   { id: 4,  title: "Everlend",                category: "Construction",      videoSrc: "/media/work/EVERLAND.mp4",                   tag: "L"  },
   { id: 5,  title: "Everlend Reel",           category: "Construction",      videoSrc: "/media/work/Everlend1.mp4",                  tag: "L"  },
-  { id: 11, title: "Baby Reel",               category: "Lifestyle",         videoSrc: "/media/work/BABY.mp4",                       tag: "R"  },
+  { id: 11, title: "Baby Reel",               category: "Lifestyle",         videoSrc: "/media/work/BABY.mp4",                       tag: "E"  },
   { id: 12, title: "Covertee",                category: "Fashion & Apparel", videoSrc: "/media/work/covertee.mp4",                   tag: "L"  },
   { id: 32, title: "Corvette Reel",           category: "Automotive",        videoSrc: "/media/work/CorvetteReel.mp4",               tag: "L"  },
   { id: 33, title: "Corvette Reel Vol. 2",    category: "Automotive",        videoSrc: "/media/work/CorvetteReel2.mp4",              tag: "L"  },
   { id: 34, title: "Credible Group",          category: "Corporate",         videoSrc: "/media/work/CredibleGroup.mp4",              tag: "L"  },
-  { id: 36, title: "Event Reel",              category: "Event Coverage",    videoSrc: "/media/work/EVENTR1.mp4",                    tag: "L"  },
-  { id: 38, title: "Hotel X",                 category: "Hospitality",       videoSrc: "/media/work/HotelX.mp4",                     tag: "R"  },
+  { id: 36, title: "Event Reel",              category: "Event Coverage",    videoSrc: "/media/work/EVENTR1.mp4",                    tag: "A"  },
+  { id: 38, title: "Hotel X",                 category: "Hospitality",       videoSrc: "/media/work/HotelX.mp4",                     tag: "E"  },
   { id: 41, title: "Negotiation",             category: "Corporate",         videoSrc: "/media/work/Negotiation.mp4",                tag: "P"  },
   { id: 18, title: "EVA Animation",           category: "Animation",         videoSrc: "/media/work/22 EVA - Animation_updated.mp4", tag: "C"  },
 ];
@@ -60,15 +60,16 @@ const PROJECTS = [
 /* ─── TAB DEFINITIONS ─── */
 const TABS = [
   { key: "ALL", label: "All",             color: "#eee3ca" },
-  { key: "A",   label: "Ads",            color: "#f4a261" },
-  { key: "R",   label: "Restaurant",     color: "#2587a8" },
-  { key: "P",   label: "Personal Brand", color: "#d4af37" },
-  { key: "L",   label: "Local Business", color: "#6bcb77" },
-  { key: "C",   label: "Construction",   color: "#e76f51" },
+  { key: "A",   label: "Ads",             color: "#f4a261" },
+  { key: "R",   label: "Restaurant",      color: "#2587a8" },
+  { key: "P",   label: "Personal Brand",  color: "#d4af37" },
+  { key: "L",   label: "Local Business",  color: "#6bcb77" },
+  { key: "C",   label: "Construction",    color: "#e76f51" },
+  { key: "E",   label: "Event",           color: "#9b59b6" },
 ];
 
-const TAG_LABELS = { A: "Ad", R: "Reel", P: "Personal", L: "Local", C: "Construction" };
-const TAG_COLORS = { A: "#f4a261", R: "#2587a8", P: "#d4af37", L: "#6bcb77", C: "#e76f51" };
+const TAG_LABELS = { A: "Ad", R: "Reel", P: "Personal", L: "Local", C: "Construction", E: "Event" };
+const TAG_COLORS = { A: "#f4a261", R: "#2587a8", P: "#d4af37", L: "#6bcb77", C: "#e76f51", E: "#9b59b6" };
 
 /* ─── CLIENT SITES ─── */
 const CLIENT_SITES = [

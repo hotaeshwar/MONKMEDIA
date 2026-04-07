@@ -275,7 +275,7 @@ function App() {
           <div className="splash-content">
             <div className="splash-logo-wrap">
               <img
-                src="/media/logo.png"
+                src="/media/logonew.png"
                 alt="Monk Media"
                 className="splash-logo"
               />

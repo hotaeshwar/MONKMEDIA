@@ -18,7 +18,7 @@ const SERVICES = [
     tags: "ORGANIC · RANKINGS · GROWTH",
     description:
       "Climb search rankings organically with data-driven SEO strategies tailored to your market. We optimize your Google Business Profile, build authoritative backlinks, and publish keyword-rich content that ranks — turning Google into your most powerful, always-on sales channel.",
-    image: "/media/sconew.jpg",
+    image: "/media/paidadsnew.png",
     video: null,
     comingSoon: false,
   },
@@ -28,9 +28,10 @@ const SERVICES = [
     tags: "CONTENT · ENGAGE · CONVERT",
     description:
       "From strategy to daily execution, we build communities around your brand. Scroll-stopping content, consistent posting, and real engagement — handled.",
-    image: "/media/services/socialmedia.jpg",
+    image: "/media/social.png",
     video: null,
     comingSoon: false,
+    imageStyle: { objectFit: "contain", objectPosition: "center" },
   },
   {
     id: "04",
@@ -159,12 +160,10 @@ function ServiceRow({ service, index }) {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-20">
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-16">
-            {/* Left — text */}
             <div className="flex flex-col gap-4 sm:gap-5 flex-1">
               <p className="text-[10px] tracking-[0.25em] text-[#2587a8] uppercase">
                 {service.tags}
               </p>
-
               <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                 <h3
                   className="text-[#eee3ca] font-extrabold leading-[1.05] text-2xl sm:text-3xl md:text-4xl xl:text-5xl"
@@ -177,13 +176,10 @@ function ServiceRow({ service, index }) {
                   We Are Adding Soon
                 </span>
               </div>
-
               <div className="w-10 h-0.5 rounded-full bg-[#d4af37]" />
-
               <p className="text-[#eee3ca]/70 text-sm sm:text-base leading-relaxed max-w-xl">
                 {service.description}
               </p>
-
               <button
                 onClick={scrollToOurWork}
                 className="inline-flex items-center gap-2 mt-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-[#d4af37] text-[#d4af37] text-sm font-semibold tracking-wide hover:bg-[#d4af37] hover:text-black transition-all duration-300 w-fit"
@@ -195,8 +191,6 @@ function ServiceRow({ service, index }) {
                 </svg>
               </button>
             </div>
-
-            {/* Right — locked placeholder */}
             <div className="w-full lg:w-[36%] shrink-0">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-white/5 bg-[#0a0a0a] flex flex-col items-center justify-center gap-5">
                 <div
@@ -275,13 +269,22 @@ function ServiceRow({ service, index }) {
                   autoPlay muted loop playsInline
                   className="w-full h-full object-cover"
                 />
-              ) : (
+              ) : service.image ? (
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
+                  style={
+                    service.imageStyle
+                      ? service.imageStyle
+                      : { objectFit: "cover", objectPosition: "center" }
+                  }
                   loading="lazy"
                 />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                  <span className="text-[#eee3ca]/40 text-sm">No media</span>
+                </div>
               )}
               <div className="absolute inset-0 bg-gradient-to-br from-black/25 to-transparent" />
               <span
@@ -306,26 +309,22 @@ function ServiceRow({ service, index }) {
             <p className="text-[10px] tracking-[0.25em] text-[#2587a8] uppercase">
               {service.tags}
             </p>
-
             <h3
               className="text-[#eee3ca] font-extrabold leading-[1.05] text-2xl sm:text-3xl md:text-4xl xl:text-5xl"
               style={{ fontFamily: "'Syne', sans-serif" }}
             >
               {service.title}
             </h3>
-
             <div
               className="w-10 h-0.5 rounded-full bg-[#d4af37]"
               style={{ marginLeft: isEven ? 0 : "auto" }}
             />
-
             <p className="text-[#eee3ca]/70 text-sm sm:text-base leading-relaxed max-w-md">
               {service.description}
             </p>
 
             {/* Buttons container */}
             <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
-              {/* FIXED: Added missing <a tag */}
               <a
                 href={waLink}
                 target="_blank"
@@ -340,7 +339,6 @@ function ServiceRow({ service, index }) {
                 </svg>
               </a>
 
-              {/* ── Website Designing service gets its own "View Websites" button ── */}
               {service.id === "01" ? (
                 <button
                   onClick={scrollToLiveSites}
@@ -384,7 +382,6 @@ export default function Services() {
   const [headerRef, headerVisible] = useReveal(0.04);
 
   useEffect(() => {
-    // Guard against SSR (window not defined)
     if (typeof window === "undefined") return;
 
     if (window.location.hash === "#our-work") {
@@ -433,7 +430,6 @@ export default function Services() {
               <span className="text-[11px] tracking-[0.22em] text-[#eee3ca]/40 uppercase">Services</span>
               <span className="block w-9 h-px bg-[#2587a8]" />
             </div>
-
             <h2
               className="text-[#eee3ca] font-extrabold leading-none text-[clamp(2.8rem,10vw,7rem)]"
               style={{ fontFamily: "'Syne', sans-serif" }}
@@ -442,7 +438,6 @@ export default function Services() {
               <span className="text-[#2587a8]">DO BEST.</span>
             </h2>
           </div>
-
           <div className="lg:max-w-xs xl:max-w-sm lg:pb-2">
             <p className="text-[#eee3ca]/60 text-sm sm:text-base leading-relaxed">
               Six focused disciplines. One relentless goal — help your brand grow, get found, and be remembered.
