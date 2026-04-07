@@ -12,15 +12,16 @@ const SERVICES = [
     video: null,
     comingSoon: false,
   },
-  {
+ {
     id: "02",
     title: "SEO & Local SEO",
     tags: "ORGANIC · RANKINGS · GROWTH",
     description:
       "Climb search rankings organically with data-driven SEO strategies tailored to your market. We optimize your Google Business Profile, build authoritative backlinks, and publish keyword-rich content that ranks — turning Google into your most powerful, always-on sales channel.",
-    image: "/media/paidadsnew.png",
+    image: "/media/imagenew.png",
     video: null,
     comingSoon: false,
+    imageStyle: { objectFit: "cover", objectPosition: "top center" },
   },
   {
     id: "03",
