@@ -338,9 +338,7 @@ export default function Footer() {
             {/* Left: copyright + legal links */}
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
               <p className="text-xs text-center sm:text-left text-white/35">
-                © {year} Monk Media. All rights reserved. Made with{" "}
-                <span className="text-red-500">♥</span> by{" "}
-                <span className="text-teal-500">BuildingIndiaDigital</span>
+                © {year} Monk Media. All rights reserved.
               </p>
               <div className="flex items-center gap-3">
                 <span className="hidden sm:block w-px h-3 bg-white/15" />

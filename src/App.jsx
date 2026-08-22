@@ -283,7 +283,7 @@ function App() {
 
             <div className="splash-accent-line" />
 
-            <p className="splash-tagline">Digital Agency · Mississauga</p>
+            <p className="splash-tagline">Digital Agency</p>
 
             <div className="splash-bar-wrap">
               <div className="splash-bar-fill" />

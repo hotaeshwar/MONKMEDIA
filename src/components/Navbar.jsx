@@ -4,8 +4,8 @@ import { ArrowUpRight, X, User, Mail, Phone, MessageSquare, ChevronDown, CheckCi
 
 /* ─── NAV LINKS ─── */
 const leftLinks = [
-  { label: "Home",    to: "/" },
-  { label: "Career",  to: "/career" },
+  { label: "Home", to: "/" },
+  { label: "Career", to: "/career" },
 ];
 
 const rightLinks = [
@@ -41,10 +41,10 @@ function DropletNavLink({ to, label, end, scrolled }) {
       end={end}
       onMouseEnter={spawnDrop}
       className={({ isActive }) =>
-        `relative px-5 py-2.5 rounded-full text-[0.95rem] transition-all duration-300 overflow-hidden select-none whitespace-nowrap group
+        `relative px-5 py-2.5 rounded-full text-[0.95rem] font-extrabold tracking-wide transition-all duration-300 overflow-hidden select-none whitespace-nowrap group
          ${isActive
-           ? "text-[#2587a8]"
-           : `${scrolled ? "text-[#0d1b2a]" : "text-[#eee3ca]"} hover:text-[#2587a8]`}`
+          ? "text-[#2587a8] font-black"
+          : `${scrolled ? "text-[#0d1b2a]" : "text-white"} hover:text-[#2587a8] font-extrabold`}`
       }
       style={{ fontWeight: 800 }}
     >
@@ -338,10 +338,10 @@ function ContactModal({ open, onClose }) {
    MAIN NAVBAR
 ═══════════════════════════════════════════ */
 export default function Navbar() {
-  const [open, setOpen]         = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [modal, setModal]       = useState(false);
-  const location                = useLocation();
+  const [modal, setModal] = useState(false);
+  const location = useLocation();
 
   useEffect(() => { setOpen(false); }, [location]);
 
@@ -410,8 +410,8 @@ export default function Navbar() {
           fixed top-0 left-0 right-0 z-50
           transition-all duration-500 ease-out
           ${scrolled
-            ? "bg-[#eee3ca] shadow-[0_4px_32px_rgba(0,0,0,0.12)]"
-            : "bg-transparent"}
+            ? "bg-[#eee3ca] shadow-[0_4px_32px_rgba(0,0,0,0.15)] border-b border-[#0d1b2a]/10"
+            : "bg-[#0d1b2a]/85 backdrop-blur-md border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"}
         `}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -507,9 +507,9 @@ export default function Navbar() {
                       `flex items-center justify-between px-4 py-3 rounded-xl text-[0.95rem]
                        transition-colors duration-200
                        ${isActive
-                         ? "text-[#2587a8] bg-[#2587a8]/10"
-                         : "text-[#0d1b2a] hover:bg-[#0d1b2a]/5 hover:text-[#2587a8]"
-                       }`
+                        ? "text-[#2587a8] bg-[#2587a8]/10"
+                        : "text-[#0d1b2a] hover:bg-[#0d1b2a]/5 hover:text-[#2587a8]"
+                      }`
                     }
                     style={{ fontWeight: 800 }}
                   >
@@ -531,8 +531,10 @@ export default function Navbar() {
                 text-[#0d1b2a] hover:bg-[#0d1b2a]/5 hover:text-[#2587a8]
                 w-full transition-colors duration-200
               "
-              style={{ fontWeight: 800, background: "none", border: "none", cursor: "pointer",
-                transitionDelay: open ? `${allLinks.length * 55}ms` : "0ms" }}
+              style={{
+                fontWeight: 800, background: "none", border: "none", cursor: "pointer",
+                transitionDelay: open ? `${allLinks.length * 55}ms` : "0ms"
+              }}
             >
               <span>Get In Touch</span>
               <ArrowUpRight size={15} className="text-[#2587a8]" />
